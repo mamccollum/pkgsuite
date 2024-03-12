@@ -30,4 +30,12 @@ NOTE: To do a statically linked build instead of dynamic, edit `src/mk.config.he
 
 There is an example package in `example-pkg`, along with scripts that have comments on how to compile.
 
+# Known Potential "Issues"
 
+Any non-ASCII characters are not allowed, and in ASCII only a subset of printable characters are allowed.
+
+See `src/libadm/ckpath.c` for a list of the bad printable ASCII characters.
+
+```
+static char	*badset = "*?[]{}()<> \t'`\"\\|^";
+```
