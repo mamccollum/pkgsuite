@@ -11,7 +11,7 @@ case "$(uname -s)" in
     Linux*)     printf "Linux\n"; cp mk.config.head.unix mk.config.head;;
     Darwin*)    printf "macOS/Darwin... ERROR: No longer supported. Sorry...\n"; exit 1;; # cp mk.config.head.darwin mk.config.head;;
     FreeBSD*)   printf "FreeBSD\n"; cp mk.config.head.fbsd mk.config.head;;
-    *)          printf "ERROR: Unknown system. Not supported. Sorry...\n"; exit 1;; #cp mk.config.head.unix mk.config.head;;
+    *)          printf "Unix-like...\n"; cp mk.config.head.unix mk.config.head;;
 esac
 
 printf "[ MAKE ] Checking for make... "
