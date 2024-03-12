@@ -15,10 +15,16 @@ jobs:
     - uses: actions/checkout@v3
     - name: configure
       working-directory: ./src
-      run: ./configure
+      run: sh -c './configure'
     - name: make
       working-directory: ./src
       run: make
     - name: cleanup
       working-directory: ./src
       run: make mrproper
+    - name: install
+      working-directory: ./src
+      run: sudo make install
+    - name: packaging test
+      working-directory: ./example-pkg
+      run: ./compile.sh && PATH="/usr/local/bin:/usr/local/sbin:$PATH" ./package.sh
