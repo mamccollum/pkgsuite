@@ -19,12 +19,12 @@ jobs:
     - name: make
       working-directory: ./src
       run: make
-    - name: cleanup
-      working-directory: ./src
-      run: make mrproper
     - name: install
       working-directory: ./src
       run: sudo make install
     - name: packaging test
       working-directory: ./example-pkg
       run: ./compile.sh && PATH="/usr/local/bin:/usr/local/sbin:$PATH" ./package.sh
+    - name: cleanup
+      working-directory: ./src
+      run: make mrproper
