@@ -1,0 +1,61 @@
+# Standard mess in the source tree
+*.o
+*.a
+*.so
+*~
+mk.config
+mk.config.conf
+mk.config.head
+# THIS MUST BE CASE-SENSITIVE !!!
+Makefile
+
+# Generated sources, binaries & scripts
+src/libinst/scriptvfy.c
+src/pkgcmds/installf/installf
+src/pkgcmds/pkgadd/pkgadd
+src/pkgcmds/pkgchk/pkgchk
+src/pkgcmds/pkginfo/pkginfo
+src/pkgcmds/pkginstall/pkginstall
+src/pkgcmds/pkgmk/pkgmk
+src/pkgcmds/pkgname/pkgname
+src/pkgcmds/pkgparam/pkgparam
+src/pkgcmds/pkgproto/pkgproto
+src/pkgcmds/pkgremove/pkgremove
+src/pkgcmds/pkgrm/pkgrm
+src/pkgcmds/pkgscripts/cmdexec
+src/pkgcmds/pkgscripts/default
+src/pkgcmds/pkgscripts/i.awk
+src/pkgcmds/pkgscripts/i.build
+src/pkgcmds/pkgscripts/i.CompCpio
+src/pkgcmds/pkgscripts/i.sed
+src/pkgcmds/pkgscripts/r.awk
+src/pkgcmds/pkgscripts/r.build
+src/pkgcmds/pkgscripts/r.sed
+src/pkgcmds/pkgtrans/pkgtrans
+src/valtools/ckdate
+src/valtools/ckgid
+src/valtools/ckint
+src/valtools/ckitem
+src/valtools/ckkeywd
+src/valtools/ckpath
+src/valtools/ckrange
+src/valtools/ckstr
+src/valtools/cktime
+src/valtools/ckuid
+src/valtools/ckyorn
+src/valtools/puttext
+src/valtools/crossln
+src/ccs
+
+# etc
+.vscode/
+
+# example pkg
+example-pkg/root/usr/bin/example
+example-pkg/src/example
+example-pkg/root/sample.pkg
+example-pkg/root/sample/reloc/usr/bin/example
+example-pkg/root/prototype
+example-pkg/root/sample/pkginfo
+example-pkg/root/sample/pkgmap
+example-pkg/sample.pkg

@@ -1,0 +1,24 @@
+name: Build on Ubuntu
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: configure
+      working-directory: ./src
+      run: ./configure
+    - name: make
+      working-directory: ./src
+      run: make
+    - name: cleanup
+      working-directory: ./src
+      run: make mrproper

@@ -1,0 +1,197 @@
+#!/bin/sh
+
+printf "### CONFIGURE SCRIPT FOR PKGTOOLS
+### Copyright (c) Molly A. McCollum (mamccollum)
+### All rights reserved.
+
+"
+# Check for system via `uname -s`
+printf "[  OS  ] Checking for OS... "
+case "$(uname -s)" in
+    Linux*)     printf "Linux\n"; cp mk.config.head.unix mk.config.head;;
+    Darwin*)    printf "macOS/Darwin... ERROR: No longer supported. Sorry...\n"; exit 1;; # cp mk.config.head.darwin mk.config.head;;
+    FreeBSD*)   printf "FreeBSD\n"; cp mk.config.head.fbsd mk.config.head;;
+    *)          printf "ERROR: Unknown system. Not supported. Sorry...\n"; exit 1;; #cp mk.config.head.unix mk.config.head;;
+esac
+
+printf "[ MAKE ] Checking for make... "
+which $MAKE > /dev/null 2>&1; MAKE_CUSTOM=$?
+which gmake > /dev/null 2>&1; MAKE_GMAKE=$?
+which make > /dev/null 2>&1; MAKE_MAKE=$?
+which bmake > /dev/null 2>&1; MAKE_BMAKE=$?
+if [ "$MAKE_CUSTOM" -eq 0 ]; then
+    printf '%s\n' "$(which $MAKE)"
+elif [ "$MAKE_GMAKE" -eq 0 ]; then
+    printf '%s\n' "$(which gmake)"
+    MAKE=gmake
+elif [ "$MAKE_MAKE" -eq 0 ]; then
+    printf '%s\n' "$(which make)"
+    MAKE=make
+elif [ "$MAKE_BMAKE" -eq 0 ]; then
+    printf '%s\n' "$(which bmake)"
+    MAKE=bmake
+else
+    printf "no\nFATAL ERROR: make not found."
+    exit 1
+fi
+
+printf "[  CC  ] Checking for C compiler... "
+which $CC > /dev/null 2>&1; CC_CUSTOM=$?
+which gcc > /dev/null 2>&1; CC_GCC=$?
+which clang > /dev/null 2>&1; CC_CLANG=$?
+which cc > /dev/null 2>&1; CC_CC=$?
+if [ "$CC_CUSTOM" -eq 0 ]; then
+    printf '%s\n' "$(which $CC)"
+elif [ "$CC_GCC" -eq 0 ]; then
+    printf '%s\n' "$(which gcc)"
+    CC=gcc
+elif [ "$CC_CLANG" -eq 0 ]; then
+    printf '%s\n' "$(which clang)"
+    CC=clang
+elif [ "$CC_CC" -eq 0 ]; then
+    printf '%s\n' "$(which cc)"
+    CC=cc
+else
+    printf "no\nFATAL ERROR: C compiler not found."
+    exit 1
+fi
+
+printf "[  LD  ] Checking for linker... "
+which $LD > /dev/null 2>&1; LD_CUSTOM=$?
+which ld > /dev/null 2>&1; LD_LD=$?
+which gold > /dev/null 2>&1; LD_GOLD=$?
+which ld.gold > /dev/null 2>&1; LD_LDGOLD=$?
+if [ "$LD_CUSTOM" -eq 0 ]; then
+    printf '%s\n' "$(which $LD)"
+elif [ "$LD_LD" -eq 0 ]; then
+    printf '%s\n' "$(which ld)"
+    LD=ld
+elif [ "$LD_GOLD" -eq 0 ]; then
+    printf '%s\n' "$(which gold)"
+    LD=gold
+elif [ "$LD_LDGOLD" -eq 0 ]; then
+    printf '%s\n' "$(which ld.gold)"
+    LD=ld.gold
+else
+    printf "no\nFATAL ERROR: linker not found."
+    exit 1
+fi
+
+printf "[  AR  ] Checking for archiver... "
+which $AR > /dev/null 2>&1; AR_CUSTOM=$?
+which ar > /dev/null 2>&1; AR_AR=$?
+if [ "$AR_CUSTOM" -eq 0 ]; then
+    printf '%s\n' "$(which $AR)"
+elif [ "$AR_AR" -eq 0 ]; then
+    printf '%s\n' "$(which ar)"
+    AR=ar
+else
+    printf "no\nFATAL ERROR: archiver not found."
+    exit 1
+fi
+
+printf "[RANLIB] Checking for ranlib... "
+which $RANLIB > /dev/null 2>&1; RANLIB_CUSTOM=$?
+which ranlib > /dev/null 2>&1; RANLIB_RANLIB=$?
+if [ "$RANLIB_CUSTOM" -eq 0 ]; then
+    printf '%s\n' "$(which $RANLIB)"
+elif [ "$RANLIB_RANLIB" -eq 0 ]; then
+    printf '%s\n' "$(which ranlib)"
+    RANLIB=ranlib
+else
+    printf "no\nFATAL ERROR: ranlib not found."
+    exit 1
+fi
+
+printf "[ YACC ] Checking for YACC-compatible parser... "
+which $YACC > /dev/null 2>&1; YACC_CUSTOM=$?
+which bison > /dev/null 2>&1; YACC_BISON=$?
+which byacc > /dev/null 2>&1; YACC_BYACC=$?
+which yacc > /dev/null 2>&1; YACC_YACC=$?
+if [ "$YACC_CUSTOM" -eq 0 ]; then
+    printf '%s\n' "$(which $YACC)"
+elif [ "$YACC_BISON" -eq 0 ]; then
+    printf '%s\n' "$(which bison) -y"
+    YACC="bison -y"
+elif [ "$YACC_BYACC" -eq 0 ]; then
+    printf '%s\n' "$(which byacc)"
+    YACC=byacc
+elif [ "$YACC_YACC" -eq 0 ]; then
+    printf '%s\n' "$(which yacc)"
+    YACC=yacc
+else
+    printf "no\nFATAL ERROR: yacc-compatible parser not found."
+    exit 1
+fi
+
+printf "[ LEX  ] Checking for lex-compatible lexer... "
+which $LEX > /dev/null 2>&1; LEX_CUSTOM=$?
+which flex > /dev/null 2>&1; LEX_FLEX=$?
+which lex > /dev/null 2>&1; LEX_LEX=$?
+if [ "$LEX_CUSTOM" -eq 0 ] ; then
+    printf '%s\n' "$(which $LEX)"
+elif [ "$LEX_FLEX" -eq 0 ]; then
+    printf '%s\n' "$(which flex)"
+    LEX=flex
+elif [ "$LEX_LEX" -eq 0 ]; then
+    printf '%s\n' "$(which lex)"
+    LEX=lex
+else
+    printf "no\nFATAL ERROR: lex-compatible lexer not found."
+    exit 1
+fi
+
+printf "[ INST ] Checking for BSD-compatible install... "
+which $INST > /dev/null 2>&1; INST_CUSTOM=$?
+which $INSTALL > /dev/null 2>&1; INSTALL_CUSTOM=$?
+which install > /dev/null 2>&1; INSTALL_INSTALL=$?
+if [ "$INST_CUSTOM" -eq 0 ]; then
+    printf '%s\n' "$(which $INST)"
+    INSTALL="$INST"
+elif [ "$INSTALL_CUSTOM" -eq 0 ]; then
+    printf '%s\n' "$(which $INSTALL)"
+elif [ "$INSTALL_INSTALL" -eq 0 ]; then
+    printf '%s\n' "$(which install)"
+    INSTALL=install
+else
+    printf "no\nFATAL ERROR: BSD-compatible install not found."
+    exit 1
+fi
+
+printf "[ PREF ] Setting PREFIX... "
+if [ "$PREF" != '' ]; then
+    printf '%s\n' "$PREF"
+    PREFIX="$PREF"
+elif [ "$PREFIX" != '' ]; then
+    printf '%s\n' "$PREFIX"
+else
+    printf '%s\n' "/usr/local"
+    PREFIX=/usr/local
+fi
+
+printf "Setting CCSDIR...\n"
+CCSDIR=$(pwd)/ccs
+mkdir -p $CCSDIR/lib
+printf "%s\n" "$CFLAGS"
+
+echo "### configure results
+MAKE = $MAKE
+CC = $CC
+LD = $LD
+AR = $AR
+RANLIB = $RANLIB
+YACC = $YACC
+LEX = $LEX
+INSTALL = $INSTALL
+PREFIX = $PREFIX
+CCSDIR = $CCSDIR
+### end configure results
+" > mk.config.conf
+
+cat mk.config.head mk.config.conf mk.config.tail > mk.config
+
+cp Makefile.in Makefile
+
+echo "
+Run '$MAKE' to begin build.
+"

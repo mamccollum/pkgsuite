@@ -1,0 +1,10 @@
+# Sccsid @(#)pkginfo	1.1 (gritter) 2/25/07
+PKG=sample
+NAME=Sample Package
+DESC=A sample package made with the SVR4 packaging tools.
+VENDOR=Example Author
+EMAIL=root@example.org
+VERSION=070225
+ARCH=amd64
+CATEGORY=utilities
+BASEDIR=/

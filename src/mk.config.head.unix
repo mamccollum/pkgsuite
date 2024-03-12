@@ -1,0 +1,8 @@
+SHELL = /bin/sh
+VAR=/var
+CFLAGS = -O
+LDFLAGS=
+CCSLDFLAGS=
+CPPFLAGS=-D_GNU_SOURCE -std=c89
+STRIP=strip -s -R .comment -R .note
+LNS = ln -s
