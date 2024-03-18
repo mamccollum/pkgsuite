@@ -91,7 +91,9 @@ extern int	_getvol(char *device, char *label, int options, char *prompt,
 extern int	ds_ginit(char *device);
 extern int	ds_close(int pkgendflg);
 
-#define	CPIOPROC	BINDIR "/cpio.traditional"
+/* #define	CPIOPROC	BINDIR "/cpio" */
+#define CPIOPROC	"/usr/bin/cpio"
+
 
 #define	CMDSIZE	512	/* command block size */
 
