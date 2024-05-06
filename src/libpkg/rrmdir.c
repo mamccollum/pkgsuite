@@ -79,11 +79,11 @@ rrmdir(char *a_path)
 
 	(void) snprintf(path, sizeof (path), "%s/", a_path);
 	i = e_ExecCmdList(&status, (char **)NULL, (char *)NULL,
-		BINDIR "/rm", "rm", "-rf", path, (char *)NULL);
+		"/bin/rm", "rm", "-rf", path, (char *)NULL);
 
 	if (access(a_path, F_OK) == 0) {
 		i = e_ExecCmdList(&status, (char **)NULL, (char *)NULL,
-			BINDIR "/rmdir", "rmdir", a_path, (char *)NULL);
+			"/bin/rmdir", "rmdir", a_path, (char *)NULL);
 	}
 
 	/* return 0 if last command successful, else return 1 */

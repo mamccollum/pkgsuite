@@ -2724,7 +2724,7 @@ cp_pkgdirs(void)
 		 * don't want to lose this data.
 		 */
 		r = e_ExecCmdList(&status, (char **)NULL, (char *)NULL,
-			BINDIR "/cp", "cp", "-r", pkgloc, pkgloc_sav,
+			"/bin/cp", "cp", "-r", pkgloc, pkgloc_sav,
 			(char *)NULL);
 
 		if ((r != 0) || (status == -1) || (WEXITSTATUS(status) != 0)) {

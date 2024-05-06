@@ -7,12 +7,12 @@ rm -rf sample* prototype
 
 # make prototype file to list files to be packaged
 echo "i pkginfo" >> prototype
-pkgproto usr >> prototype
+pkgproto usr=/usr >> prototype
 
 # make package into filesystem format
 pkgmk -d . -r .
 
-# translate package into SVR4 datastream (portability? yes please!)
+# translate package into SVR4 datastream
 pkgtrans -s . sample.pkg all
 
 cp sample.pkg ..

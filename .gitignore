@@ -45,3 +45,11 @@ src/valtools/ckyorn
 src/valtools/puttext
 src/valtools/crossln
 src/ccs
+
+# Example pkg
+example-pkg/root/prototype
+example-pkg/root/sample.pkg
+example-pkg/root/sample/
+example-pkg/root/usr/
+example-pkg/sample.pkg
+example-pkg/src/example

@@ -112,7 +112,7 @@
 
 /* commands to execute */
 
-#define	LS_CMD		BINDIR "/ls"
+#define	LS_CMD		"/bin/ls"
 
 /*
  * type definition and "types" for testPath()

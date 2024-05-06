@@ -83,7 +83,7 @@ extern "C" {
 #endif
 
 #define	OAMBASE	SADMDIR "/sysadm"
-#define	MAILCMD	BINDIR "/mail"
+#define	MAILCMD	"/usr/bin/mail"
 #define	DATSTRM	"datastream"
 /* #define	SHELL	SHELL */
 #define	PKGINFO	"pkginfo"

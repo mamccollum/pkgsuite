@@ -63,7 +63,7 @@
 #include "libinst.h"
 #include "messages.h"
 
-#define	MAILCMD	BINDIR "/mail"
+#define	MAILCMD	"/usr/bin/mail"
 
 /* lockinst.c */
 extern void	unlockinst(void);

@@ -52,7 +52,7 @@
 
 #ifdef	MAILCMD
 #undef  MAILCMD
-#define	MAILCMD		BINDIR "/mail"
+#define	MAILCMD		"/usr/bin/mail"
 #endif	/* MAILCMD */
 #define	ERR_MAIL	"unable to send electronic mail notification"
 #define	ERR_OVERWRITE	"unable to determine overwrite list"
