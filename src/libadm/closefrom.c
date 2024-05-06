@@ -40,9 +40,7 @@
 #include <dirent.h>
 #include <limits.h>
 #include <errno.h>
-#if !defined(__FreeBSD__)
 #include <alloca.h>
-#endif
 #include <sys/resource.h>
 
 /* Initial size of the open file descriptor array */

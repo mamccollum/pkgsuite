@@ -37,11 +37,7 @@
 
 #include <sys/types.h>
 #include <sys/param.h>
-#if defined(__APPLE__) || defined(__FreeBSD__)
-#include <sys/mount.h>
-#else
 #include <sys/sysmacros.h>
-#endif
 
 /*
  * This should not be a constant, but for ufs it is 12, not 10 like for s5.

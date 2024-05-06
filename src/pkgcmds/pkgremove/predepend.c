@@ -75,5 +75,5 @@ predepend(char *oldpkg)
 				return;
 			}
 		}
-	} while ((oldpkg = strtok(NULL, " \t\n")));
+	} while (oldpkg = strtok(NULL, " \t\n"));
 }

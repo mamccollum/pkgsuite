@@ -39,13 +39,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/param.h>
-#if defined(__APPLE__) || defined(__FreeBSD__)
-#include <sys/statvfs.h>
-#define statvfs64 statvfs
-#define fstatvfs64 fstatvfs
-#else
 #include <sys/sysmacros.h>
-#endif
 #include <string.h>
 #include <strings.h>
 #include <sys/wait.h>
@@ -231,13 +225,8 @@ set_cfdir(char *cfdir)
 int
 ocfile(VFP_T **r_mapvfp, VFP_T **r_tmpvfp, ulong_t map_blks)
 {
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	struct stat	statb;
-	struct statvfs	svfsb;
-	#else
 	struct	stat64	statb;
 	struct	statvfs64	svfsb;
-	#endif
 	fsblkcnt_t free_blocks;
 	fsblkcnt_t need_blocks;
 	VFP_T		*mapvfp = (VFP_T *)NULL;
@@ -301,11 +290,7 @@ ocfile(VFP_T **r_mapvfp, VFP_T **r_tmpvfp, ulong_t map_blks)
 
 	/* Get the contents file size */
 
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	if (fstat(fileno(mapvfp->_vfpFile), &statb) == -1) {
-	#else
 	if (fstat64(fileno(mapvfp->_vfpFile), &statb) == -1) {
-	#endif
 		int	lerrno = errno;
 
 		progerr(gettext(ERR_NOSTAT), contents);
@@ -316,11 +301,7 @@ ocfile(VFP_T **r_mapvfp, VFP_T **r_tmpvfp, ulong_t map_blks)
 
 	/* Get the filesystem space */
 
-	#if defined(__APPLE__) || defined(__FreeBSD_)
-	if (fstatvfs(fileno(mapvfp->_vfpFile), &svfsb) == -1) {
-	#else
 	if (fstatvfs64(fileno(mapvfp->_vfpFile), &svfsb) == -1) {
-	#endif
 		int	lerrno = errno;
 
 		progerr(gettext(ERR_NOSTATV), contents);
@@ -736,20 +717,11 @@ pkgWlock(int verbose) {
 		if (lockf(lock_fd, F_LOCK, 0)) {
 			if (errno == EAGAIN || errno == EINTR)
 				logerr(gettext(MSG_XWTING));
-			#if defined(__APPLE__) || defined(__FreeBSD__)
-			else if (errno == EDEADLK) {
-				logerr(gettext(ERR_DEADLCK));
-				retval = 0;
-				break;
-			}
-			#else
 			else if (errno == ECOMM) {
 				logerr(gettext(ERR_LCKREM));
 				retval = 0;
 				break;
-			}
-			#endif
-			else if (errno == EBADF) {
+			} else if (errno == EBADF) {
 				logerr(gettext(ERR_BADLCK));
 				retval = 0;
 				break;

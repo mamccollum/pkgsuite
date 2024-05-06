@@ -378,7 +378,7 @@ getline(FILE *fp)
 
 		if (*pt == '(') {
 			/* architecture is specified */
-			if ((new = strchr(pt, ')')))
+			if (new = strchr(pt, ')'))
 				*new++ = '\0';
 			else
 				return (-1); /* bad specification */
@@ -389,7 +389,7 @@ getline(FILE *fp)
 			pt++;
 		if (*pt) {
 			vlist[found] = qstrdup(pt);
-			if ((pt = strchr(vlist[found], '\n')))
+			if (pt = strchr(vlist[found], '\n'))
 				*pt = '\0';
 		}
 		found++;
@@ -446,7 +446,7 @@ ckpreq(FILE *fp, char *dname, boolean_t a_preinstallCheck)
 		pkgexist = 1;
 
 		do {
-			if ((inst = fpkginst(abbrev, alist[i], vlist[i]))) {
+			if (inst = fpkginst(abbrev, alist[i], vlist[i])) {
 				if (strcmp(inst, rmpkginst) == 0) {
 					deponme(dname, "", a_preinstallCheck);
 					(void) fclose(fp);

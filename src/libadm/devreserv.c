@@ -150,7 +150,7 @@ _rsvtabpath(void)
 		(void) strcpy(lockname, p);
 	} else {
 #endif
-	    if ((lockname = malloc(strlen(DVLK_PATH)+1)))
+	    if (lockname = malloc(strlen(DVLK_PATH)+1))
 		(void) strcpy(lockname, DVLK_PATH);
 
 #ifdef	DEBUG
@@ -190,7 +190,7 @@ _openlkfile(void)
 	(void) _closelkfile();
 
 	/* If we can get the name of the lock file ... */
-	if ((lockname = _rsvtabpath())) {
+	if (lockname = _rsvtabpath()) {
 
 	    /* Open it */
 	    lkfilefd = open(lockname, O_RDWR|O_CREAT, 0600);
@@ -359,7 +359,7 @@ readlocks(void)
 
 	    /* Allocate space for the locks */
 	    bufsiz = lockcount * sizeof (struct devlks);
-	    if ((alloc = malloc(bufsiz))) {
+	    if (alloc = malloc(bufsiz)) {
 
 		/* Read the locks into the malloc()ed buffer */
 		if (read(lkfilefd, alloc, bufsiz) != (ssize_t)bufsiz)
@@ -478,7 +478,7 @@ writelks(int tblcnt)
 		/* Write the table as we currently know it */
 		tblsz = tblcnt * sizeof (struct devlks);
 		if (tblsz)
-		    if (((!write(lkfilefd, locklist, tblsz)) == (ssize_t)tblsz))
+		    if (!write(lkfilefd, locklist, tblsz) == (ssize_t)tblsz)
 			noerr = FALSE;  /* Write of locks failed */
 
 	    } else noerr = FALSE;  /* write() of count failed */
@@ -745,7 +745,7 @@ islocked(char *device)
 	int		i;		/* Temp counter */
 
 	/* Get the device's alias */
-	if ((alias = devattr(device, DTAB_ALIAS))) {
+	if (alias = devattr(device, DTAB_ALIAS)) {
 
 	/*
 	 * Look through the device locks to see if this device alias
@@ -825,7 +825,7 @@ unreserv(int key, char *device)
 	 */
 
 	olderrno = errno;
-	if ((alias = devattr(device, DTAB_ALIAS))) srchalias = alias;
+	if (alias = devattr(device, DTAB_ALIAS)) srchalias = alias;
 	else {
 	    errno = olderrno;
 	    srchalias = device;
@@ -926,8 +926,8 @@ devreserv(
 	olderrno = errno;
 	for (ndevs = 0; *ppp++; ndevs++)
 		;
-	if ((rtnlist = malloc((ndevs+1)*sizeof (char **)))) {
-	    if ((aliases = malloc((ndevs+1)*sizeof (char **)))) {
+	if (rtnlist = malloc((ndevs+1)*sizeof (char **))) {
+	    if (aliases = malloc((ndevs+1)*sizeof (char **))) {
 		if (getlocks()) {
 		    qq = rtnlist;
 		    rr = aliases;
@@ -946,10 +946,10 @@ devreserv(
 			 * returns that device's alias, it's ours to have
 			 */
 
-			    if ((alias = islocked(*pp))) {
+			    if (alias = islocked(*pp)) {
 				gotone = TRUE;
 				foundone = TRUE;
-				if ((*qq = malloc(strlen(*pp)+1))) {
+				if (*qq = malloc(strlen(*pp)+1)) {
 				    (void) strcpy(*qq++, *pp);
 				    *rr++ = alias;
 				} else {
@@ -1119,14 +1119,14 @@ reservdev(void)
 
 		    /* Alloc space for the return list */
 		    bufsiz = (lockcount+1) * sizeof (struct reservdev *);
-		    if ((rtnlist = malloc(bufsiz))) {
+		    if (rtnlist = malloc(bufsiz)) {
 
 			/* Build the return list from the lock list */
 			p = locklist;
 			q = rtnlist;
 			for (i = 0; noerr && (i < lockcount); i++) {
-			    if ((*q = malloc(sizeof (struct reservdev)))) {
-				if ((r = malloc(strlen(p->lk_alias)+1))) {
+			    if (*q = malloc(sizeof (struct reservdev))) {
+				if (r = malloc(strlen(p->lk_alias)+1)) {
 				    (*q)->devname = strcpy(r, p->lk_alias);
 				    (*q)->key = p->lk_key;
 				} else noerr = FALSE;  /* malloc() error */

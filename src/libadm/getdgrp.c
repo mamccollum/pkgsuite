@@ -296,7 +296,7 @@ addtodgrplist(struct dgrptabent *dgrp)
 	    if (newnode) {
 
 		/* Allocate space for the device group name */
-		if ((newstr = malloc(strlen(dgrp->name)+1))) {
+		if (newstr = malloc(strlen(dgrp->name)+1)) {
 
 		    /* Link the new structure into the list */
 		    newnode->name = strcpy(newstr, dgrp->name);
@@ -361,32 +361,23 @@ isindevlist(
 	 * pathname)
 	 */
 	    allocflag = (*pmbr->name == '/');
-	    if (allocflag) {
+	    if (allocflag)
 		mbralias = devattr(pmbr->name, DTAB_ALIAS);
-	    } else {
-		mbralias = pmbr->name;
-	    }
+	    else mbralias = pmbr->name;
 
 	    /* If we've got a member alias, search the device list for it */
-	    if (mbralias) {
-		for (pdev = devlist; notfound && *pdev; pdev++) {
+	    if (mbralias)
+		for (pdev = devlist; notfound && *pdev; pdev++)
 
-		    if ((cmpval = strcmp(mbralias, *pdev)) == 0) {
-			notfound = FALSE;
-		    } else if (cmpval < 0) {
+		if ((cmpval = strcmp(mbralias, *pdev)) == 0) notfound = FALSE;
+		else if (cmpval < 0)
 			break;	/* Optimization:  alpha sorted list */
-		    }
 
-		}
-	    }
-
-	    /*
-	     * Free the space allocated to the member alias
-	     * (if it was allocated above by devattr())
-	     */
-	    if (allocflag) {
-		free(mbralias);
-	    }
+		/*
+		 * Free the space allocated to the member alias
+		 * (if it was allocated above by devattr())
+		 */
+	    if (allocflag) free(mbralias);
 
 	}
 

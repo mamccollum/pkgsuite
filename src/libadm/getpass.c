@@ -41,33 +41,7 @@
 #include <signal.h>
 #include <unistd.h>
 /* #include <stropts.h> */
-/* non-glibc systems dont have termio.h */
-#if defined(__GLIBC__) || defined(__sun)
 #include <termio.h>
-#else /* !__GLIBC__ && !__sun */
-#include <termios.h>
-#include <sys/ioctl.h>
-/* boilerplate to fix the following: 
- * undeclared identifier 'TCGETA' 'TCSETAF' 'TCSETAW'
- * "error: variable has incomplete type 'struct termio'"
- */
-#define TCGETA TIOCGETA
-#define TCSETAF TIOCSETAF
-#define TCSETAW TIOCSETAW
-struct termio {
-	/* Pray this works. */
-	unsigned short c_iflag;		/* input mode flags */
-	unsigned short c_oflag;		/* output mode flags */
-	unsigned short c_cflag;		/* control mode flags */
-	unsigned short c_lflag;		/* local mode flags */
-	unsigned char c_line;		/* line discipline */
-	unsigned char c_cc[32];		/* control characters */
-	unsigned short c_ispeed;	/* input speed */
-	unsigned short c_ospeed;	/* output speed */
-};
-
-
-#endif /* __GLIBC__ || __sun */
 
 static void catch(int);
 static int intrupt;

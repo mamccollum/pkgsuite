@@ -231,7 +231,7 @@ getnextrec(void)
 
 	/* If there's no buffer for records, try to get one */
 	if (!recbuf) {
-	    if ((recbuf = malloc(DGRP_BUFSIZ))) {
+	    if (recbuf = malloc(DGRP_BUFSIZ)) {
 		recbufsz = DGRP_BUFSIZ;
 		xtndcnt = 0;
 	    } else return (NULL);
@@ -264,8 +264,8 @@ getnextrec(void)
 			if (xtndcnt < XTND_MAXCNT) {
 
 			    /* Expand the record buffer */
-			    if ((p = realloc(recbuf,
-				(size_t)(recbufsz+DGRP_BUFINC)))) {
+			    if (p = realloc(recbuf,
+				(size_t)(recbufsz+DGRP_BUFINC))) {
 
 				/* Update buffer information */
 				xtndcnt++;
@@ -365,7 +365,7 @@ _dgrptabpath(void)
 	 * Use the default name.
 	 */
 
-	    if ((rtnval = malloc(strlen(DGRP_PATH)+1)))
+	    if (rtnval = malloc(strlen(DGRP_PATH)+1))
 		(void) strcpy(rtnval, DGRP_PATH);
 
 #ifdef	DEBUG
@@ -398,9 +398,9 @@ _opendgrptab(char *mode)
 	int	rtnval;		/* Value to return */
 
 	rtnval = TRUE;
-	if ((dgrptabname = _dgrptabpath())) {
+	if (dgrptabname = _dgrptabpath()) {
 	    if (oam_dgroup) (void) fclose(oam_dgroup);
-	    if ((oam_dgroup = fopen(dgrptabname, mode))) {
+	    if (oam_dgroup = fopen(dgrptabname, mode)) {
 		xtndcnt = 0;
 		recnum = 0;
 	    } else rtnval = FALSE;  /* :-( */
@@ -464,7 +464,7 @@ _getdgrptabent(void)
 		ent->entryno = recnum++;
 
 		/* Alloc space for the comment and save pointer in struct */
-		if ((ent->dataspace = malloc(strlen(record)+1))) {
+		if (ent->dataspace = malloc(strlen(record)+1)) {
 		    (void) strcpy(ent->dataspace, record);
 		} else {
 		    free(ent);
@@ -480,7 +480,7 @@ _getdgrptabent(void)
 		ent->comment = FALSE;
 
 		/* Extract the device-group name */
-		if ((p = getfld(record, ":"))) {
+		if (p = getfld(record, ":")) {
 
 		/* Record is a proper record */
 		    done = TRUE;
@@ -520,7 +520,7 @@ _getdgrptabent(void)
 			q->next = NULL;
 
 			/* Get the rest of the members */
-			while ((p = getfld(NULL, ",\n")))
+			while (p = getfld(NULL, ",\n"))
 			    if (*p) {
 				if (!(r = malloc(sizeof (struct member)))) {
 				    for (q = ent->membership; q; q = r) {

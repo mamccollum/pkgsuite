@@ -77,7 +77,7 @@ dofinal(VFP_T *vfp, VFP_T *vfpo, int rmflag, char *myclass, char *prog)
 
 	dbchg = 0;
 
-	while ((n = srchcfile(&(entry.cf_ent), "*", vfp, vfpo))) {
+	while (n = srchcfile(&(entry.cf_ent), "*", vfp, vfpo)) {
 		if (n < 0) {
 			char	*errstr = getErrstr();
 			progerr(gettext

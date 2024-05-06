@@ -324,7 +324,7 @@ pkgparam(char *pkg, char *param)
 			return (NULL);
 	}
 
-	if ((pt = fpkgparam(fp, param))) {
+	if (pt = fpkgparam(fp, param)) {
 		if (strcmp(param, "ARCH") == 0 ||
 		    strcmp(param, "CATEGORY") == 0) {
 			/* remove all whitespace from value */

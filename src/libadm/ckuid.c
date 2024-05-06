@@ -73,7 +73,7 @@ setmsg(int disp)
 
 	setpwent();
 	count = 0;
-	while ((pwdptr = getpwent())) {
+	while (pwdptr = getpwent()) {
 		n += strlen(pwdptr->pw_name) + 2;
 		while (n >= m) {
 			m += MALSIZ;
@@ -96,7 +96,7 @@ ckuid_dsp(void)
 	if (ckpwdfile() == 1)
 		return (1);
 	setpwent();
-	while ((pwdptr = getpwent()))
+	while (pwdptr = getpwent())
 		(void) printf("%s\n", pwdptr->pw_name);
 	endpwent();
 	return (0);

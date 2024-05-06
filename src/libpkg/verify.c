@@ -42,9 +42,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <utime.h>
-#ifndef __APPLE__
 #include <malloc.h>
-#endif
 #include <sys/types.h>
 #include <sys/param.h>
 #include <sys/stat.h>
@@ -61,14 +59,7 @@
 #ifdef __sun
 #include <sys/mkdev.h>
 #endif
-#if defined(__APPLE__) || defined(__FreeBSD__)
-#include <sys/disk.h>
-#include <sys/statvfs.h>
-#define statvfs64 statvfs
-#define O_LARGEFILE 0
-#else
 #include <sys/sysmacros.h>
-#endif
 #include "pkglocale.h"
 
 #define	WDMSK	0xFFFF
@@ -114,7 +105,7 @@ reperr(char *fmt, ...)
 	if (fmt == (char *)NULL) {
 		theErrBuf[0] = '\0';
 	} else {
-		if ((n = strlen(theErrBuf))) {
+		if (n = strlen(theErrBuf)) {
 			pt = theErrBuf + n;
 			*pt++ = '\n';
 			*pt = '\0';
@@ -647,7 +638,7 @@ averify(int fix, char *ftype, char *path, struct ainfo *ainfo)
 					p = strdup(path);
 					pt = (*p == '/') ? p+1 : p;
 					do {
-						if ((pt = strchr(pt, '/')))
+						if (pt = strchr(pt, '/'))
 							*pt = '\0';
 						if (access(p, 0) &&
 						    mkdir(p, ainfo->mode))

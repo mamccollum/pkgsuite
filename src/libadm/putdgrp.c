@@ -135,17 +135,14 @@ opennewdgrptab(char **pname)	 /* A(ptr to temp filename's path) */
 	char   *p;			/* Ptr to last '/' in dgrptab name */
 	int    fd;			/* Opened file descriptor */
 	FILE   *fp;			/* Opened file pointer */
-	#if defined(__APPLE__) || defined(__FreeBSD__) 
-	struct stat	sbuf;		/* stat buf for old dgrptab file */
-	#else
 	struct stat64	sbuf;		/* stat buf for old dgrptab file */
-	#endif
+
 
 	/* Initializations */
 	fp = NULL;
 
 	/* Get the name of the device-group table */
-	if ((oldname = _dgrptabpath())) {
+	if (oldname = _dgrptabpath()) {
 	/*
 	 * It is possible for us to have sufficient permissions to create
 	 * the new file without having sufficient permissions to write the
@@ -156,25 +153,21 @@ opennewdgrptab(char **pname)	 /* A(ptr to temp filename's path) */
 	    if ((fd = open(oldname, O_WRONLY)) == -1)
 		return (NULL);
 
-		#if defined(__APPLE__) || defined(__FreeBSD__)
-		if (fstat(fd, &sbuf) == -1) {
-		#else
 	    if (fstat64(fd, &sbuf) == -1) {
-		#endif
 		(void) close(fd);
 		return (NULL);
 	    }
 	    (void) close(fd);
 
 	    /* Get the directory that the device-group table lives in */
-	    if ((p = strrchr(oldname, '/'))) {
+	    if (p = strrchr(oldname, '/')) {
 		*(p+1) = '\0';
 		dirname = oldname;
 	    } else
 		dirname = "./";
 
 	    /* Get space for the temp dgrptab pathname */
-	    if ((buf = malloc(TDGTABNMLN+strlen(dirname)+1))) {
+	    if (buf = malloc(TDGTABNMLN+strlen(dirname)+1)) {
 
 		/*
 		 * Build the name of the temp dgrptab and open the
@@ -182,7 +175,7 @@ opennewdgrptab(char **pname)	 /* A(ptr to temp filename's path) */
 		 * of the original dgrptab file.
 		 */
 		(void) sprintf(buf, TDGTABNM, dirname, getpid());
-		if ((fp = fopen(buf, "w"))) {
+		if (fp = fopen(buf, "w")) {
 			*pname = buf;
 			(void) fchmod(fileno(fp), sbuf.st_mode & 0777);
 			(void) fchown(fileno(fp), sbuf.st_uid, sbuf.st_gid);
@@ -254,7 +247,7 @@ mknewdgrptab(char *tempname)		/* Ptr to name of temp dgrp tab */
 	int	noerr;			/* FLAG, TRUE if all's well */
 
 	/* Get the dgrptab's pathname */
-	if ((dgrpname = _dgrptabpath())) {
+	if (dgrpname = _dgrptabpath()) {
 
 	    /* Unlink the existing file */
 	    if (unlink(dgrpname) == 0) {
@@ -427,7 +420,7 @@ mkdgrptabent(
 	noerr = TRUE;
 
 	/* Get space for the structure */
-	if ((ent = malloc(sizeof (struct dgrptabent)))) {
+	if (ent = malloc(sizeof (struct dgrptabent))) {
 
 	    /* Fill in default values */
 	    ent->name = NULL; 				/* alias */
@@ -437,7 +430,7 @@ mkdgrptabent(
 	    ent->membership = NULL;			/* attr list */
 
 	    /* Fill in the device-group name */
-	    if ((ent->name = malloc(strlen(dgroup)+1))) {
+	    if (ent->name = malloc(strlen(dgroup)+1)) {
 		(void) strcpy(ent->name, dgroup);
 
 		/* Add membership to the structure */
@@ -445,9 +438,9 @@ mkdgrptabent(
 		if ((pp = members) != NULL)
 		    while (*pp && noerr) {
 
-		    if ((member = malloc(sizeof (struct member)))) {
+		    if (member = malloc(sizeof (struct member))) {
 
-			if ((member->name = malloc(strlen(*pp)+1))) {
+			if (member->name = malloc(strlen(*pp)+1)) {
 			    (void) strcpy(member->name, *pp);
 			    if (prev) prev->next = member;
 			    else ent->membership = member;
@@ -531,7 +524,7 @@ _putdgrptabrec(
 
 
 	    /* Alloc space for the record */
-	    if ((buf = malloc((size_t) size+1))) {
+	    if (buf = malloc((size_t) size+1)) {
 
 		/* Initializations */
 		p = buf;
@@ -625,7 +618,7 @@ _adddgrptabrec(
 
 	noerr = TRUE;
 	olderrno = errno;
-	if ((ent = _getdgrprec(dgrp))) {
+	if (ent = _getdgrprec(dgrp)) {
 
 	    /* Any members to add?  If not, do nothing. */
 	    if (new->membership) {
@@ -663,7 +656,7 @@ _adddgrptabrec(
 		_setdgrptab();	/* Rewind existing table */
 
 		/* Open a temp file */
-		if ((fd = opennewdgrptab(&path))) {
+		if (fd = opennewdgrptab(&path)) {
 
 		    /* While there's more records and no error ... */
 		    while (((p = _getdgrptabent()) != NULL) && noerr) {
@@ -739,9 +732,9 @@ _rmdgrptabrec(char *dgrp)		/* Device-group to remove */
 	noerr = TRUE;
 	if (!lkdgrptab("r", F_WRLCK))
 		return (FALSE);
-	if ((ent = _getdgrprec(dgrp))) {
+	if (ent = _getdgrprec(dgrp)) {
 	    _setdgrptab();
-	    if ((fd = opennewdgrptab(&path))) {
+	    if (fd = opennewdgrptab(&path)) {
 		while (((p = _getdgrptabent()) != NULL) && noerr) {
 		    if (ent->entryno != p->entryno)
 			noerr = _putdgrptabrec(fd, p) != EOF;
@@ -814,14 +807,14 @@ _rmdgrpmems(
 	*notfounds = NULL;
 
 	/* Get the entry we're to modify */
-	if ((ent = _getdgrprec(dgrp))) {
+	if (ent = _getdgrprec(dgrp)) {
 
 	    /* Allocate space for the not-found list */
 	    i = 1;
 	    if (mems)
 		for (pp = mems; *pp; pp++)
 			i++;
-	    if ((nflst = malloc(i*sizeof (char *)))) {
+	    if (nflst = malloc(i*sizeof (char *))) {
 		pnf = nflst;
 		*pnf = NULL;
 
@@ -860,7 +853,7 @@ _rmdgrpmems(
 		 * add it to the list of not-found members
 		 */
 		    if (!found) {
-			if ((*pnf = malloc(strlen(*pp)+1))) {
+			if (*pnf = malloc(strlen(*pp)+1)) {
 			    (void) strcpy(*pnf++, *pp);
 			    *pnf = NULL;
 			} else noerr = FALSE;
@@ -870,7 +863,7 @@ _rmdgrpmems(
 
 		_setdgrptab();		/* Rewind existing table */
 
-		if ((fd = opennewdgrptab(&path))) {
+		if (fd = opennewdgrptab(&path)) {
 		    while (((p = _getdgrptabent()) != NULL) && noerr) {
 			if (ent->entryno != p->entryno)
 			    noerr = _putdgrptabrec(fd, p) != EOF;

@@ -42,9 +42,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#ifndef __APPLE__
 #include <malloc.h>
-#endif
 #include <assert.h>
 #include <sys/stat.h>
 #include <pkgstrct.h>

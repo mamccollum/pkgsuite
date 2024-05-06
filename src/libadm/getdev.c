@@ -250,7 +250,7 @@ getdev(
 
 	errflag = FALSE;
 	while (!errflag && (entry = getnextmatch(searchlist, options))) {
-	    if ((entry = oktoaddtolist(entry, devices, aliases, options))) {
+	    if (entry = oktoaddtolist(entry, devices, aliases, options)) {
 		errflag = addtodevicelist(entry);
 	    }
 	}
@@ -442,10 +442,10 @@ addtodevicelist(char *deventry)
 	if (!q || (cmpcd != 0)) {
 
 	    /* Alloc space for the new node */
-		    if ((new = malloc(sizeof (struct deviceent)))) {
+	    if (new = malloc(sizeof (struct deviceent))) {
 
-			/* Alloc space for the device character string */
-			if ((str = malloc(strlen(deventry)+1))) {
+		/* Alloc space for the device character string */
+		if (str = malloc(strlen(deventry)+1)) {
 
 		/*
 		 * Insert an entry in the found device list containing
@@ -518,7 +518,7 @@ buildsearchlist(char **criteria)	/* Criteria from caller */
 		;
 
 	    /* Allocate space for structures describing the criteria */
-	    if ((rtnbuf = malloc(n*sizeof (struct srch)))) {
+	    if (rtnbuf = malloc(n*sizeof (struct srch))) {
 
 		/* Build structures describing the criteria */
 		pp = criteria;
@@ -529,13 +529,13 @@ buildsearchlist(char **criteria)	/* Criteria from caller */
 		    psrch->fcn = ENDLIST;
 
 		    /* Alloc space for strings referenced by the structure */
-		    if ((str = malloc(strlen(*pp)+1))) {
+		    if (str = malloc(strlen(*pp)+1)) {
 
 			/* Extract field name, function, and compare string */
 			(void) strcpy(str, *pp);
 
 			/* If criteria contains an equal sign ('=') ... */
-			if ((p = strchr(str+1, '='))) {
+			if (p = strchr(str+1, '=')) {
 			    if (*(p-1) == '!') {
 				*(p-1) = '\0';
 				psrch->fcn = NOTEQUAL;
@@ -549,8 +549,7 @@ buildsearchlist(char **criteria)	/* Criteria from caller */
 			}
 
 			/* If criteria contains a colon (':') ... */
-
-			else if ((p = strchr(str+1, ':'))) {
+			else if (p = strchr(str+1, ':')) {
 			    if (*(p-1) == '!') {
 				*(p-1) = '\0';
 				psrch->fcn = NOEXISTS;
@@ -634,7 +633,7 @@ buildreturnlist(void)
 	 * with space for the terminating node
 	 */
 
-	if ((list = malloc((devicelist.count+1)*sizeof (char *)))) {
+	if (list = malloc((devicelist.count+1)*sizeof (char *))) {
 
 	/*
 	 * Walk the list of accumulated devices, putting pointers to
@@ -693,17 +692,17 @@ makealiaslist(char **devices)
 	    for (n = 1, pp = devices; *pp; pp++) n++;
 
 	    /* Get space for the alias list */
-	    if ((aliases = malloc(n*sizeof (char *)))) {
+	    if (aliases = malloc(n*sizeof (char *))) {
 
 		/* Build the alias list */
 		qq = aliases;
 		for (pp = devices; noerror && *pp; pp++) {
 
 		    /* Get the device's alias and put it in the list */
-		    if ((alias = devattr(*pp, DTAB_ALIAS))) *qq++ = alias;
+		    if (alias = devattr(*pp, DTAB_ALIAS)) *qq++ = alias;
 		    else {
 			errno = olderrno;
-			if ((alias = malloc(strlen("")+1)))
+			if (alias = malloc(strlen("")+1))
 			    *qq++ = strcpy(alias, "");
 			else {
 			    /* No space for a null string?  Yeech... */
@@ -808,7 +807,7 @@ getnextmatch(struct srch *criteria, int options)
 	    while (notdone && (devtabent = _getdevtabent())) {
 		if (!devtabent->comment) {
 		    if (!criteria || matchallcriteria(devtabent, criteria)) {
-			if ((alias = malloc(strlen(devtabent->alias)+1)))
+			if (alias = malloc(strlen(devtabent->alias)+1))
 			    (void) strcpy(alias, devtabent->alias);
 			else noerror = FALSE;
 			notdone = FALSE;
@@ -826,7 +825,7 @@ getnextmatch(struct srch *criteria, int options)
 	    while (notdone && (devtabent = _getdevtabent())) {
 		if (!devtabent->comment) {
 		    if (!criteria || matchanycriteria(devtabent, criteria)) {
-				if ((alias = malloc(strlen(devtabent->alias)+1)))
+			if (alias = malloc(strlen(devtabent->alias)+1))
 			    (void) strcpy(alias, devtabent->alias);
 			else noerror = FALSE;
 			notdone = FALSE;

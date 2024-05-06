@@ -96,7 +96,7 @@ ckgid_dsp(void)
 	if (ckgrpfile() == 1)
 		return (1);
 	setgrent();
-	while ((grpptr = getgrent()))
+	while (grpptr = getgrent())
 		(void) printf("%s\n", grpptr->gr_name);
 	endgrent();
 	return (0);

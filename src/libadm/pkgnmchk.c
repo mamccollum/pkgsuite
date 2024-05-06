@@ -81,7 +81,7 @@ valname(char *pkg, int wild, int presvr4flg)
 	 * first since we need to look for SVR3 ".name"
 	 * before we validate the package abbreviation
 	 */
-	if ((pt = strpbrk(pkg, NMBRK))) {
+	if (pt = strpbrk(pkg, NMBRK)) {
 		if (presvr4flg && (strcmp(pt, WILD3) == 0))
 			return (0); /* SVR3 packages have no validation */
 		else if ((strcmp(pt, WILD1) == 0) || (strcmp(pt, WILD2) == 0)) {

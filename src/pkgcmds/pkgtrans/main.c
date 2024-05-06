@@ -138,10 +138,8 @@ main(int argc, char *argv[])
 	(void) signal(SIGQUIT, trap);
 	(void) signal(SIGTERM, trap);
 	(void) signal(SIGPIPE, trap);
-#ifndef __APPLE__
 #ifndef SUNOS41
 	(void) signal(SIGPWR, trap);
-#endif
 #endif
 
 	if ((argc-optind) < 2) {

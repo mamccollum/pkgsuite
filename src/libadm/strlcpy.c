@@ -41,7 +41,6 @@
  * terminated.
  */
 
-#if !defined(__APPLE__)
 size_t
 strlcpy(char *dst, const char *src, size_t len)
 {
@@ -59,4 +58,3 @@ strlcpy(char *dst, const char *src, size_t len)
 	dst[copied] = '\0';
 	return (slen);
 }
-#endif

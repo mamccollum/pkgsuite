@@ -1,14 +1,12 @@
-# pkgsuite
-
-**WARNING: this currently builds but does not properly package. do not use.**
+# pkgtools
 
 This is a fork of the Heirloom pkgtools, derived from OpenSolaris & UNIX SVR4.
 
-See [README.d](README.d/) for OS-specific documentation & other information.
+## Confirmed Working Systems
 
-## Notes
-- You need OpenSSL/LibreSSL headers to compile this.
-- You also need GNU gettext to compile this and run.
+|   OS  |   Components tested with |
+| ----- | ------------------------ |
+| Debian GNU/Linux x86_64 (11.x) | Glibc 2.31, GNU Binutils (ar, ld, gold) 2.35.2, byacc 1.9, bmake 20200710, GNU Bison 3.7.5, Clang 11.0.1 |
 
 ## Building
 
@@ -27,17 +25,7 @@ To clean the directories after running `make`:
 make mrproper
 ```
 
-NOTE: To do a statically linked build instead of dynamic, edit `src/mk.config.head.*` and append `-static` to the lines beginning with `LDFLAGS` and `CCSLDFLAGS`.
+NOTE: To do a statically linked build instead of dynamic, edit `src/mk.config.head` and append `-static` to the lines beginning with `LDFLAGS` and `CCSLDFLAGS`.
 
 
 There is an example package in `example-pkg`, along with scripts that have comments on how to compile.
-
-# Known Potential "Issues"
-
-Any non-ASCII characters are not allowed, and in ASCII only a subset of printable characters are allowed.
-
-See `src/libadm/ckpath.c` for a list of the bad printable ASCII characters.
-
-```
-static char	*badset = "*?[]{}()<> \t'`\"\\|^";
-```

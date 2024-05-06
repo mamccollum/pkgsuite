@@ -103,7 +103,7 @@
  */
 #define	ADDL_TBL_BUF 1024
 
-static int eptnum;
+int eptnum;
 struct cfent **eptlist;
 
 /* private globals */
@@ -292,7 +292,7 @@ create_SQL_db(char *pkginstallroot)
 		    strlen(pcContents) +
 		    strlen(pcPatch) +
 		    strlen(pcSQL_pkginfo) +
-		    strlen(pcSQL_platform) +
+		    strlen(pcSQL_platform),
 		    strlen(pcDepComments) +
 		    strlen(pcSQL_depend) +
 		    strlen(SQL_CREATE_INDEX_PKGS) +
@@ -1857,7 +1857,7 @@ strip_ir(char *path)
 
 	if (path == NULL) {
 		return (NULL);
-	} else if ((irlen = get_installroot_len(get_install_root()))) {
+	} else if (irlen = get_installroot_len(get_install_root())) {
 		return (strdup(path + irlen));
 	} else {
 		return (strdup(path));
@@ -3240,7 +3240,7 @@ convert_depend_to_sql(struct dstr *pd, FILE *fp, const char *pkg)
 		if (*pt == '(') {
 			arch = NULL;
 			/* architecture is specified */
-			if ((new = strchr(pt, ')')))
+			if (new = strchr(pt, ')'))
 				*new++ = '\0';
 			else {
 				/* bad specification */
@@ -3255,7 +3255,7 @@ convert_depend_to_sql(struct dstr *pd, FILE *fp, const char *pkg)
 			pt++;
 		if (*pt) {
 			version = strdup(pt);
-			if ((pt = strchr(version, '\n')))
+			if (pt = strchr(version, '\n'))
 				*pt = '\0';
 
 			/*

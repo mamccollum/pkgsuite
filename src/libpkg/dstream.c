@@ -44,14 +44,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/param.h>
-#if defined(__APPLE__) || defined(__FreeBSD__)
-#include <sys/disk.h>
-#include <sys/statvfs.h>
-#define statvfs64 statvfs
-#define O_LARGEFILE 0
-#else
 #include <sys/sysmacros.h>
-#endif
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -79,11 +72,11 @@ extern int	getvol(char *device, char *label, int options, char *prompt);
 
 #define	CMDSIZ	512
 #define	LSIZE	128
-/* ugh.
-#define	DDPROC		BINDIR "/dd"
-#define	CPIOPROC	BINDIR "/cpio" */
+/* 	#define	DDPROC		BINDIR "/dd"
+	#define	CPIOPROC	BINDIR "/cpio" */
 #define	DDPROC		"/usr/bin/dd"
 #define	CPIOPROC	"/usr/bin/cpio"
+
 
 /* device types */
 
@@ -461,7 +454,7 @@ ds_init(char *device, char **pkg, char *norewind)
 	ds_head = tail = (struct dstoc *)0;
 	ds_volcnt = 1;
 
-	while ((ret = ds_gets(line, LSIZE))) {
+	while (ret = ds_gets(line, LSIZE)) {
 		if (strcmp(line, HDR_SUFFIX) == 0)
 			break;
 		if (!line[0] || line[0] == '#')
@@ -530,7 +523,7 @@ ds_init(char *device, char **pkg, char *norewind)
 	 * if we are extracting all packages (pkgs == NULL),
 	 * signature will automatically be extracted
 	 */
-	if ((n = esystem(cmd, ds_fd, -1))) {
+	if (n = esystem(cmd, ds_fd, -1)) {
 		rpterr();
 		progerr(pkg_gt(ERR_UNPACK));
 		logerr(pkg_gt(MSG_CMDFAIL), cmd, n);
@@ -655,7 +648,7 @@ ds_getnextvol(char *device)
 	(void) sprintf(prompt,
 	    pkg_gt("Insert %%v %d of %d into %%p"),
 	    ds_volno, ds_volcnt);
-	if ((n = getvol(device, NULL, 0, prompt)))
+	if (n = getvol(device, NULL, 0, prompt))
 		return (n);
 	if ((ds_fd = open(device, O_RDONLY | O_LARGEFILE)) < 0)
 		return (-1);
@@ -685,14 +678,14 @@ ds_skip(char *device, int nskip)
 		(void) sprintf(cmd, "%s -ict -C %d > /dev/null",
 #endif
 		    CPIOPROC, (int)BLK_SIZE);
-		if ((n = esystem(cmd, ds_fd, -1))) {
+		if (n = esystem(cmd, ds_fd, -1)) {
 			rpterr();
 			progerr(pkg_gt(ERR_UNPACK));
 			logerr(pkg_gt(MSG_CMDFAIL), cmd, n);
 			nskip = onskip;
 			if (ds_volno == 1 || ds_volpart > 0)
 				return (n);
-			if ((n = ds_getnextvol(device)))
+			if (n = ds_getnextvol(device))
 				return (n);
 		}
 	}
@@ -720,7 +713,7 @@ ds_next(char *device, char *instdir)
 	while (1) {
 		if (ds_read + 1 > ds_curpartcnt && ds_curpartcnt >= 0) {
 			ds_volno++;
-			if ((n = ds_getnextvol(device)))
+			if (n = ds_getnextvol(device))
 				return (n);
 			(void) sscanf(ds_volnos, "%d %[ 0-9]", &index, tmpvol);
 			(void) strcpy(ds_volnos, tmpvol);
@@ -732,7 +725,7 @@ ds_next(char *device, char *instdir)
 		(void) sprintf(cmd, "%s -icdum -C %d",
 #endif
 		    CPIOPROC, (int)BLK_SIZE);
-		if ((n = esystem(cmd, ds_fd, -1))) {
+		if (n = esystem(cmd, ds_fd, -1)) {
 			rpterr();
 			progerr(pkg_gt(ERR_UNPACK));
 			logerr(pkg_gt(MSG_CMDFAIL), cmd, n);
@@ -745,7 +738,7 @@ ds_next(char *device, char *instdir)
 			if (ds_volno == 1 || ds_volpart > ds_skippart)
 				return (-1);
 
-			if ((n = ds_getnextvol(device)))
+			if (n = ds_getnextvol(device))
 				return (n);
 			continue;
 		}

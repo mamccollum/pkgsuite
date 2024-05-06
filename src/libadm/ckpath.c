@@ -161,11 +161,7 @@ ckpath_stx(int pflags)
 int
 ckpath_val(char *path, int pflags)
 {
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	struct stat status;
-	#else
 	struct stat64 status;
-	#endif
 	int	fd;
 	char	*pt;
 
@@ -177,11 +173,7 @@ ckpath_val(char *path, int pflags)
 		_errstr = E_ABSOLUTE;
 		return (1);
 	}
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	if (stat(path, &status)) {
-	#else
 	if (stat64(path, &status)) {
-	#endif
 		if (pflags & P_EXIST) {
 			_errstr = E_EXIST;
 			return (1);

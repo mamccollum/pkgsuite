@@ -308,7 +308,7 @@ write_dryrun_ascii(void)
 
 	(void) fprintf(fp_dra, "%s\nFSUSAGE=\\\n\"\\\n", HDR_FSUSAGE);
 
-	for (n = 0; (fs_mntpt = get_fs_name_n(n)); n++) {
+	for (n = 0; fs_mntpt = get_fs_name_n(n); n++) {
 		int bfree, bused;
 		bfree = get_blk_free_n(n);
 		bused = get_blk_used_n(n);

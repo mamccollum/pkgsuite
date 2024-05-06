@@ -730,7 +730,7 @@ main(int argc, char **argv)
 		 */
 
 		if (pkgdev.mount) {
-			if ((n = pkgmount(&pkgdev, NULL, 0, 0, 1))) {
+			if (n = pkgmount(&pkgdev, NULL, 0, 0, 1)) {
 				quit(n);
 				/* NOTREACHED */
 			}

@@ -390,7 +390,7 @@ _InitRemoteFstypes(void)
 		if (format[0] == '\0') {
 			/* create bounded format: %ns */
 			(void) snprintf(format, sizeof (format),
-				"%%%lus", sizeof (buf)-1);
+				"%%%ds", sizeof (buf)-1);
 		}
 
 		(void) sscanf(line_buf, format, buf);

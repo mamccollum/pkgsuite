@@ -51,11 +51,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <assert.h>
-#if defined(__APPLE__) || defined(__FreeBSD__)
-#include <sys/wait.h>
-#else
 #include <wait.h>
-#endif
 
 /*
  * libspmi includes

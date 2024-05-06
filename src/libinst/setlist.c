@@ -352,7 +352,7 @@ is_in_env(char *class_name, char *paramname, char **paramvalue, int *noentry)
 			n = strlen(class_name);	/* end of class name */
 			test_class = *paramvalue;	/* environ ptr */
 
-			while ((test_class = strstr(test_class, class_name))) {
+			while (test_class = strstr(test_class, class_name)) {
 				/*
 				 * At this point we have a pointer to a
 				 * substring within param that matches

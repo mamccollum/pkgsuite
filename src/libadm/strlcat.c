@@ -42,7 +42,6 @@
  * the length of the pre-existing string.
  */
 
-#if !defined(__APPLE__)
 size_t
 strlcat(char *dst, const char *src, size_t dstsize)
 {
@@ -63,4 +62,3 @@ strlcat(char *dst, const char *src, size_t dstsize)
 	dst[l1+copied] = '\0';
 	return (l1 + l2);
 }
-#endif

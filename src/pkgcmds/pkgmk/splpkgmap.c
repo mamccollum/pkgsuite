@@ -51,12 +51,6 @@
 #include <libadm.h>
 #include <libinst.h>
 
-#if defined(__APPLE__) || defined(__FreeBSD__)
-#define fsblkcnt64_t fsblkcnt_t
-#define fsfilcnt64_t fsfilcnt_t
-#endif
-
-
 extern struct pkgdev pkgdev;
 
 #define	MALSIZ	500
@@ -476,7 +470,7 @@ allocnode(char *path)
 	 * since the pathname supplied is never just a directory,
 	 * we store only the dirname of of the path.
 	 */
-	while ((pt = strchr(pt, '/'))) {
+	while (pt = strchr(pt, '/')) {
 		*pt = '\0';
 		found = 0;
 		for (i = 0; dirlist[i] != NULL; i++) {
@@ -521,7 +515,7 @@ nodecount(char *path)
 	 * directory
 	 */
 	count = 0;
-	while ((pt = strchr(pt, '/'))) {
+	while (pt = strchr(pt, '/')) {
 		*pt = '\0';
 		found = 0;
 		for (i = 0; dirlist[i]; i++) {

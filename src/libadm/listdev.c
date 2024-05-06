@@ -146,7 +146,7 @@ listdev(char *device)		/* Device to describe */
 
 
 	/*  If the device <device> is defined ...  */
-	if ((devtabent = _getdevrec(device))) {
+	if (devtabent = _getdevrec(device)) {
 
 	/*
 	 *  Count the number of attributes defined for the device
@@ -167,34 +167,34 @@ listdev(char *device)		/* Device to describe */
 		while ((attrval = attrval->next) != NULL);
 	    }
 	    noerror = TRUE;
-	    if ((list = malloc(n*sizeof (char *)))) {
+	    if (list = malloc(n*sizeof (char *))) {
 		pp = list;
 		if (devtabent->alias) {
-		    if ((*pp = malloc(strlen(DTAB_ALIAS)+1)))
+		    if (*pp = malloc(strlen(DTAB_ALIAS)+1))
 			(void) strcpy(*pp++, DTAB_ALIAS);
 		    else noerror = FALSE;
 		}
 		if (noerror && devtabent->bdevice) {
-		    if ((*pp = malloc(strlen(DTAB_BDEVICE)+1)))
+		    if (*pp = malloc(strlen(DTAB_BDEVICE)+1))
 
 			(void) strcpy(*pp++, DTAB_BDEVICE);
 		    else noerror = FALSE;
 		}
 		if (noerror && devtabent->cdevice) {
-		    if ((*pp = malloc(strlen(DTAB_CDEVICE)+1)))
+		    if (*pp = malloc(strlen(DTAB_CDEVICE)+1))
 
 			(void) strcpy(*pp++, DTAB_CDEVICE);
 		    else noerror = FALSE;
 		}
 		if (noerror && devtabent->pathname) {
-		    if ((*pp = malloc(strlen(DTAB_PATHNAME)+1)))
+		    if (*pp = malloc(strlen(DTAB_PATHNAME)+1))
 
 			(void) strcpy(*pp++, DTAB_PATHNAME);
 		    else noerror = FALSE;
 		}
 		if (noerror && (attrval = devtabent->attrlist)) {
 		    do {
-			if ((*pp = malloc(strlen(attrval->attr)+1)))
+			if (*pp = malloc(strlen(attrval->attr)+1))
 
 			    (void) strcpy(*pp++, attrval->attr);
 			else noerror = FALSE;

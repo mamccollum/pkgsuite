@@ -287,14 +287,14 @@ prompt(struct pkginfo *info, int npkgs)
 
 	if (npkgs == 1) {
 		printmenu(menup);
-		if ((n = ckyorn(ans, NULL, NULL, NULL, MSG_GETINST_PROMPT0)))
+		if (n = ckyorn(ans, NULL, NULL, NULL, MSG_GETINST_PROMPT0))
 			quit(n);
 		if (strchr("yY", *ans) == NULL)
 			quit(3);
 		(void) strcpy(newinst, info[0].pkginst);
 	} else {
-		if ((n = ckitem(menup, &inst, 1, NULL, NULL, MSG_GETINST_HELP2,
-		    MSG_GETINST_PROMPT2)))
+		if (n = ckitem(menup, &inst, 1, NULL, NULL, MSG_GETINST_HELP2,
+		    MSG_GETINST_PROMPT2))
 			quit(n);
 		(void) strcpy(newinst, inst);
 	}

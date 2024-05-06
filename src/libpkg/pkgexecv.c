@@ -41,12 +41,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
-#if defined(__APPLE__) || defined(__FreeBSD__)
-#include <sys/wait.h>
-#include <spawn.h>
-#else
 #include <wait.h>
-#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -183,14 +178,7 @@ pkgexecv(char *filein, char *fileout, char *uname, char *gname, char *arg[])
 	 * call to exec().
 	 */
 
-	#ifdef __APPLE__
-	/* 
-	 * On Mac OS X, vfork() is deprecated.  Use posix_spawn() instead.
-	 */
-	pid = posix_spawn(&pid, arg[0], NULL, NULL, arg, environ);
-	#else
 	pid = vfork();
-	#endif
 
 	if (pid < 0) {
 		/*

@@ -305,8 +305,8 @@ psvr4pkg(char	**ppkg)
 				*ppkg);
 		if (access(path, 0)) {
 			ptext(stderr, gettext(MSG_NOTVER), *ppkg);
-			if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_NOTVER),
-			    gettext(ASK_CONT))))
+			if (n = ckyorn(ans, NULL, NULL, gettext(HLP_NOTVER),
+			    gettext(ASK_CONT)))
 				quit(n);
 			if (strchr("yY", *ans) == NULL)
 				quit(3);
@@ -314,11 +314,11 @@ psvr4pkg(char	**ppkg)
 		return;
 	}
 
-	if ((dirfp = opendir("/install/new/usr/options"))) {
-		while ((drp = readdir(dirfp))) {
+	if (dirfp = opendir("/install/new/usr/options")) {
+		while (drp = readdir(dirfp)) {
 			if (drp->d_name[0] == '.')
 				continue;
-			if ((pt = strchr(drp->d_name, '.'))) {
+			if (pt = strchr(drp->d_name, '.')) {
 				if (strcmp(pt, ".name") == 0) {
 					*pt = '\0';
 					*ppkg = qstrdup(drp->d_name);
@@ -331,13 +331,13 @@ psvr4pkg(char	**ppkg)
 
 	if (*ppkg) {
 		ptext(stderr, gettext(MSG_CONFIRM), *ppkg);
-		if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_CONFIRM),
-		    gettext(ASK_CONT))))
+		if (n = ckyorn(ans, NULL, NULL, gettext(HLP_CONFIRM),
+		    gettext(ASK_CONT)))
 			quit(n);
 	} else {
 		ptext(stderr, gettext(MSG_NOTVER), *ppkg);
-		if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_NOTVER),
-		    gettext(ASK_CONT))))
+		if (n = ckyorn(ans, NULL, NULL, gettext(HLP_NOTVER),
+		    gettext(ASK_CONT)))
 			quit(n);
 	}
 	if (strchr("yY", *ans) == NULL)
@@ -374,7 +374,7 @@ psvr4cnflct(void)
 	while (fgets(path, PATH_MAX, pp)) {
 		if (!found++)
 			ptext(stderr, gettext(MSG_CONFLICT));
-		if ((pt = strpbrk(path, " \t\n")))
+		if (pt = strpbrk(path, " \t\n"))
 			*pt = '\0';
 		echo("\t%s", path);
 	}
@@ -384,8 +384,8 @@ psvr4cnflct(void)
 	}
 
 	if (found) {
-		if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_CONFLICT),
-		    gettext(ASK_CONT))))
+		if (n = ckyorn(ans, NULL, NULL, gettext(HLP_CONFLICT),
+		    gettext(ASK_CONT)))
 			quit(n);
 		if (strchr("yY", *ans) == NULL)
 			quit(3);

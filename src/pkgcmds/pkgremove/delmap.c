@@ -61,10 +61,6 @@ extern char	*pkginst;
 
 extern struct cfent	**eptlist;
 extern int	eptnum;
-/* Fix eptnum being unreferenced on Darwin or BSD */
-#if defined(__APPLE__) || defined(__FreeBSD__)
-int eptnum;
-#endif
 
 int
 delmap(int flag, char *pkginst)
@@ -101,7 +97,7 @@ delmap(int flag, char *pkginst)
 	}
 
 	eptnum = 0;
-	while ((n = srchcfile(ept, "*", vfp, (VFP_T *)NULL))) {
+	while (n = srchcfile(ept, "*", vfp, (VFP_T *)NULL)) {
 		if (n < 0) {
 			char	*errstr = getErrstr();
 			progerr(gettext("bad read of contents file"));

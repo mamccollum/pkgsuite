@@ -251,7 +251,7 @@ main(int argc, char **argv)
 
 		    case 'c':
 			ckcatg[ncatg++] = strtok(optarg, " \t\n, ");
-			while ((ckcatg[ncatg] = strtok(NULL, " \t\n, ")))
+			while (ckcatg[ncatg] = strtok(NULL, " \t\n, "))
 				ncatg++;
 			break;
 
@@ -613,7 +613,7 @@ iscatg(char *list)
 
 	match = 0;
 	do {
-		if ((pt = strchr(list, ',')))
+		if (pt = strchr(list, ','))
 			*pt = '\0';
 
 		for (i = 0; ckcatg[i]; /* void */) {
@@ -644,7 +644,7 @@ look_for_installed(void)
 
 	if (strcmp(pkgdir, get_PKGLOC()) == 0 &&
 	    (dirfp = opendir(get_PKGOLD()))) {
-		while ((drp = readdir(dirfp))) {
+		while (drp = readdir(dirfp)) {
 			if (drp->d_name[0] == '.')
 				continue;
 			n = strlen(drp->d_name);
@@ -667,7 +667,7 @@ look_for_installed(void)
 	if ((dirfp = opendir(pkgdir)) == NULL)
 		return;
 
-	while ((drp = readdir(dirfp))) {
+	while (drp = readdir(dirfp)) {
 		if (drp->d_name[0] == '.')
 			continue;
 

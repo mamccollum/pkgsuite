@@ -38,11 +38,7 @@
 
 #include <stdio.h>
 #include <time.h>
-#if !defined(__APPLE__) && !defined(__FreeBSD__)
 #include <wait.h>
-#else
-#include <sys/wait.h>
-#endif
 #include <stdlib.h>
 #include <unistd.h>
 #include <ulimit.h>

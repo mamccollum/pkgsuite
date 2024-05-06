@@ -41,9 +41,7 @@
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
-#ifndef __APPLE__
 #include <malloc.h>
-#endif
 #include <unistd.h>
 #include <libgen.h>
 #include <fcntl.h>
@@ -128,7 +126,7 @@ copyf(char *a_srcPath, char *a_dstPath, time_t a_mytime)
 	if (dstFd < 0) {
 		/* create directory structure if missing */
 		pt = a_dstPath;
-		while ((pt = strchr(pt+1, '/'))) {
+		while (pt = strchr(pt+1, '/')) {
 			*pt = '\0';
 			if (isdir(a_dstPath)) {
 				if (mkdir(a_dstPath, 0755)) {
@@ -280,11 +278,7 @@ copyFile(int a_srcFd, int a_dstFd, char *a_srcPath, char *a_dstPath,
 
 		/* allocate i/o transfer buffer */
 
-		#ifndef __APPLE__
 		buf = memalign((size_t)pagesize, blocksize);
-		#else
-		buf = malloc(blocksize);
-		#endif
 		if (buf == (char *)NULL) {
 			progerr(ERR_COPY_MEMORY, a_srcPath, errno,
 				strerror(errno));

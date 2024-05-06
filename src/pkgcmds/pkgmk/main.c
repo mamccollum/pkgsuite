@@ -39,12 +39,7 @@
 #include <string.h>
 #include <signal.h>
 #include <errno.h>
-#ifndef __APPLE__
 #include <malloc.h>
-#endif
-#ifdef __FreeBSD__
-#include <sys/malloc.h>
-#endif
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
@@ -54,14 +49,7 @@
 #include <sys/param.h>
 #include <ctype.h>
 #include <sys/mman.h>
-#if defined(__APPLE__) || defined(__FreeBSD__)
-#include <sys/disk.h>
-#define statvfs64 statvfs
-#define fsblkcnt64_t fsblkcnt_t
-#define fsfilcnt64_t fsfilcnt_t
-#else
 #include <sys/sysmacros.h>
-#endif
 #include <strings.h>
 #include <pkgstrct.h>
 #include <pkgdev.h>
@@ -255,7 +243,7 @@ main(int argc, char *argv[])
 					progerr(gettext(ERR_NROOT), NROOT);
 					quit(1);
 				}
-			} while ((pt = strtok(NULL, " \t\n, ")));
+			} while (pt = strtok(NULL, " \t\n, "));
 			rootlist[n] = NULL;
 			break;
 
@@ -344,7 +332,7 @@ main(int argc, char *argv[])
 		quit(1);
 	}
 	if (pkgdev.mount) {
-		if ((n = pkgmount(&pkgdev, NULL, 0, 0, 1)))
+		if (n = pkgmount(&pkgdev, NULL, 0, 0, 1))
 			quit(n);
 	}
 
@@ -360,7 +348,7 @@ main(int argc, char *argv[])
 	}
 
 	(void) fprintf(stderr, gettext(MSG_PROTOTYPE));
-	if ((n = mkpkgmap(t_pkgmap, protofile, cmdparam))) {
+	if (n = mkpkgmap(t_pkgmap, protofile, cmdparam)) {
 		progerr(gettext(ERR_BUILD));
 		quit(1);
 	}
@@ -405,7 +393,7 @@ main(int argc, char *argv[])
 		quit(99);
 	}
 	param[0] = '\0';
-	while ((value = fpkgparam(fp, param))) {
+	while (value = fpkgparam(fp, param)) {
 		if (getenv(param) == NULL)
 			putparam(param, value);
 		free((void *)value);
@@ -422,7 +410,7 @@ main(int argc, char *argv[])
 
 	/* make sure parameters are valid */
 	(void) time(&clock);
-	if ((pt = getenv("PKG"))) {
+	if (pt = getenv("PKG")) {
 		if (pkgnmchk(pt, NULL, 0) || strchr(pt, '.')) {
 			progerr(gettext(ERR_PKGABRV), pt);
 			quit(1);
@@ -537,7 +525,7 @@ main(int argc, char *argv[])
 
 	(void) fprintf(stderr, gettext(MSG_VOLUMIZE), objects);
 	order = (struct cl_attr **)0;
-	if ((pt = getenv("ORDER"))) {
+	if (pt = getenv("ORDER")) {
 		pt = qstrdup(pt);
 		(void) setlist(&order, pt);
 		cl_putl("ORDER", order);
@@ -620,7 +608,7 @@ main(int argc, char *argv[])
 	/* determine how many packages already reside on the medium */
 	pkgdir = pkgdev.dirname;
 	npkgs = 0;
-	while ((pt = fpkginst("all", NULL, NULL)))
+	while (pt = fpkginst("all", NULL, NULL))
 		npkgs++;
 	(void) fpkginst(NULL); /* free resource usage */
 
@@ -661,7 +649,7 @@ main(int argc, char *argv[])
 				progerr(gettext(ERR_UMOUNT), pkgdev.mount);
 				quit(99);
 			}
-			if ((n = pkgmount(&pkgdev, NULL, part, nparts, 1)))
+			if (n = pkgmount(&pkgdev, NULL, part, nparts, 1))
 				quit(n);
 			(void) rrmdir(pkgloc);
 			if (mkdir(pkgloc, 0555)) {
@@ -818,7 +806,7 @@ ckmissing(char *path, char type)
 	pt = path;
 	if (*pt == '/')
 		pt++;
-	while ((pt = strchr(pt, '/'))) {
+	while (pt = strchr(pt, '/')) {
 		*pt = '\0';
 		found = 0;
 		for (i = 0; i < ndir; i++) {
@@ -841,7 +829,7 @@ slinkf(char *from, char *to)
 	char	*pt;
 
 	pt = to;
-	while ((pt = strchr(pt+1, '/'))) {
+	while (pt = strchr(pt+1, '/')) {
 		*pt = '\0';
 		if (isdir(to) && mkdir(to, 0755)) {
 			progerr(gettext(ERR_MKDIR), to);

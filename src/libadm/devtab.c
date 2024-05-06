@@ -69,13 +69,11 @@
  *	"devtab.h"		Local Device Management definitions
  */
 
-#if defined (__linux__)
 #include	<sys/sysmacros.h>
-#endif /* defined (__linux__) */
 #include	<sys/types.h>
 #if defined (__sun) && !defined (SUNOS41)
 #include	<sys/mkdev.h>
-#endif /* defined (__sun) && !defined (SUNOS41) || defined (__OSX__) */
+#endif
 #include	<unistd.h>
 #include	<stdio.h>
 #include	<string.h>
@@ -121,11 +119,7 @@ static	int		dtabrecnum = 0;
  */
 
 static int
-#if defined (__APPLE__) || defined (__FreeBSD__)
-samedev(struct stat x, struct stat y)
-#else
 samedev(struct stat64 x, struct stat64 y)
-#endif /* defined (__APPLE__) */
 {
 	int	same;
 
@@ -292,7 +286,7 @@ getquoted(char *ptr)
 	if ((p) && (*p == '"') && (p = getfld(p+1, "\""))) {
 
 	    /* Copy string for the caller */
-	    if ((rtn = malloc(strlen(p)+1))) {	/* Malloc() space */
+	    if (rtn = malloc(strlen(p)+1)) {	/* Malloc() space */
 		q = rtn;			/* Set up temp ptr */
 		do {
 		    if (*p == '\\') p++;	/* Skip escape */
@@ -342,10 +336,10 @@ getattrval(char *ptr)
 	    if (*p && getfld(p, "=")) {
 
 		/*  Allocate space for the structure we're building  */
-		if ((rtn = malloc(sizeof (struct attrval)))) {
+		if (rtn = malloc(sizeof (struct attrval))) {
 
 		    /*  Allocate space for the attribute name  */
-		    if ((rtn->attr = malloc(strlen(p)+1))) {
+		    if (rtn->attr = malloc(strlen(p)+1)) {
 
 			/*  Copy the attribute name into alloc'd space  */
 			q = rtn->attr;			/* Set up temp ptr */
@@ -430,7 +424,7 @@ getnextrec(void)
 
 	/* If there's no buffer for records, try to get one */
 	if (!recbuf) {
-	    if ((recbuf = malloc(DTAB_BUFSIZ))) {
+	    if (recbuf = malloc(DTAB_BUFSIZ)) {
 		recbufsz = DTAB_BUFSIZ;
 		xtndcnt = 0;
 	    } else return (NULL);
@@ -465,8 +459,8 @@ getnextrec(void)
 			if (xtndcnt < XTND_MAXCNT) {
 
 			    /* Expand the record buffer */
-			    if ((p = realloc(recbuf,
-				(size_t)recbufsz+DTAB_BUFINC))) {
+			    if (p = realloc(recbuf,
+				(size_t)recbufsz+DTAB_BUFINC)) {
 
 				/* Update buffer information */
 				xtndcnt++;
@@ -567,7 +561,7 @@ _devtabpath(void)
 		 * Use the standard device table.
 		 */
 
-	    if ((rtnval = malloc(strlen(DTAB_PATH)+1)))
+	    if (rtnval = malloc(strlen(DTAB_PATH)+1))
 		(void) strcpy(rtnval, DTAB_PATH);
 
 #ifdef	DEBUG
@@ -604,9 +598,9 @@ _opendevtab(char *mode)
 
 
 	rtnval = TRUE;
-	if ((devtabname = _devtabpath())) {
+	if (devtabname = _devtabpath()) {
 	    if (oam_devtab) (void) fclose(oam_devtab);
-	    if ((oam_devtab = fopen(devtabname, mode)))
+	    if (oam_devtab = fopen(devtabname, mode))
 		dtabrecnum = 0;  /* :-) */
 	    else rtnval = FALSE; /* :-( */
 	} else rtnval = FALSE;   /* :-( */
@@ -718,7 +712,7 @@ _getdevtabent(void)
 	    if (strchr("#\n", *record) || isspace((unsigned char)*record)) {
 		ent->comment = TRUE;
 		done = TRUE;
-		if ((ent->attrstr = malloc(strlen(record)+1))) {
+		if (ent->attrstr = malloc(strlen(record)+1)) {
 		    q = ent->attrstr;
 		    p = record;
 		    do {
@@ -738,9 +732,9 @@ _getdevtabent(void)
 		ent->attrstr = NULL;  /* For now */
 
 		/* Extract the device alias */
-		if ((p = getfld(record, ":"))) {
+		if (p = getfld(record, ":")) {
 		    if (*p) {
-			if ((ent->alias = malloc(strlen(p)+1))) {
+			if (ent->alias = malloc(strlen(p)+1)) {
 			    q = ent->alias;
 			    do {
 				if (*p == '\\') p++;
@@ -755,7 +749,7 @@ _getdevtabent(void)
 			    free(ent->alias);
 		    } else {
 			if (*p) {
-			    if ((ent->cdevice = malloc(strlen(p)+1))) {
+			    if (ent->cdevice = malloc(strlen(p)+1)) {
 				q = ent->cdevice;
 				do {
 				    if (*p == '\\') p++;
@@ -770,7 +764,7 @@ _getdevtabent(void)
 			    if (ent->cdevice) free(ent->cdevice);
 			} else {
 			    if (*p) {
-				if ((ent->bdevice = malloc(strlen(p)+1))) {
+				if (ent->bdevice = malloc(strlen(p)+1)) {
 				    q = ent->bdevice;
 				    do {
 					if (*p == '\\') p++;
@@ -787,7 +781,7 @@ _getdevtabent(void)
 				if (ent->bdevice) free(ent->bdevice);
 			    } else {
 				if (*p) {
-				    if ((ent->pathname = malloc(strlen(p)+1))) {
+				    if (ent->pathname = malloc(strlen(p)+1)) {
 					q = ent->pathname;
 					do {
 					    if (*p == '\\') p++;
@@ -804,10 +798,10 @@ _getdevtabent(void)
 				 * Extract attributes, build a linked list of
 				 * 'em (may be none)
 				 */
-				if ((attr = getattrval(NULL))) {
+				if (attr = getattrval(NULL)) {
 				    ent->attrlist = attr;
 				    t = attr;
-				    while ((attr = getattrval(NULL))) {
+				    while (attr = getattrval(NULL)) {
 					t->next = attr;
 					t = attr;
 				    }
@@ -923,13 +917,9 @@ _getdevrec(char	*device)			/* The device to search for */
 	/*
 	 *  Automatic data
 	 */
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	struct stat		devstatbuf;	/* Stat struct, <device> */
-	struct stat		tblstatbuf;	/* Stat struct, tbl entry */
-	#else
+
 	struct stat64		devstatbuf;	/* Stat struct, <device> */
 	struct stat64		tblstatbuf;	/* Stat struct, tbl entry */
-	#endif
 	struct devtabent	*devrec = NULL;	/* Pointer to current record */
 	int			found;		/* TRUE if record found */
 	int			olderrno;	/* Old value of errno */
@@ -964,11 +954,7 @@ _getdevrec(char	*device)			/* The device to search for */
 		_setdevtab();
 
 		/*  Status the file <device>.  If fails, invalid device */
-		#if defined(__APPLE__) || defined(__FreeBSD__)
-		if (stat(device, &devstatbuf) != 0) errno = ENODEV;
-		#else
 		if (stat64(device, &devstatbuf) != 0) errno = ENODEV;
-		#endif
 		else {
 
 			/*
@@ -982,12 +968,8 @@ _getdevrec(char	*device)			/* The device to search for */
 		    if ((devstatbuf.st_mode & 0170000) == 0020000) {
 			while (!found && (devrec = _getdevtabent())) {
 			    if (!devrec->comment &&
-				(devrec->cdevice != NULL)) {
-				#if defined(__APPLE__) || defined(__FreeBSD__)
-				if ((stat(devrec->cdevice, &tblstatbuf) == 0))
-				#else
-				if ((stat64(devrec->cdevice, &tblstatbuf) == 0))
-				#endif
+				(devrec->cdevice != NULL))
+				if (stat64(devrec->cdevice, &tblstatbuf) == 0) {
 				    if (samedev(tblstatbuf, devstatbuf))
 					found = TRUE;
 				} else {
@@ -1006,26 +988,20 @@ _getdevrec(char	*device)			/* The device to search for */
 			 * "bdevice" entries.
 			 */
 
-		else if ((devstatbuf.st_mode & 0170000) == 0060000) {
-		    while (!found && (devrec = _getdevtabent())) {
-			if (!devrec->comment &&
-			    (devrec->bdevice != NULL)) {
-			    #if defined(__APPLE__) || defined(__FreeBSD__)
-			    if ((stat(devrec->bdevice, &tblstatbuf) == 0)) {
-			    #else
-			    if ((stat64(devrec->bdevice, &tblstatbuf) == 0)) {
-			    #endif
-				if (samedev(tblstatbuf, devstatbuf)) {
-				    found = TRUE;
+		    else if ((devstatbuf.st_mode & 0170000) == 0060000) {
+			while (!found && (devrec = _getdevtabent())) {
+			    if (!devrec->comment &&
+				(devrec->bdevice != NULL))
+				if (stat64(devrec->bdevice, &tblstatbuf) == 0) {
+				    if (samedev(tblstatbuf, devstatbuf))
+					found = TRUE;
 				} else {
-				    /* Ignore stat() errs */
-				    errno = olderrno;
+					/* Ignore stat() errs */
+					errno = olderrno;
 				}
-			    }
+			    if (!found) _freedevtabent(devrec);
 			}
-			if (!found) _freedevtabent(devrec);
 		    }
-		}
 
 			/*
 			 * If <device> is neither a block-special or character-
@@ -1038,23 +1014,15 @@ _getdevrec(char	*device)			/* The device to search for */
 		    else {
 			while (!found && (devrec = _getdevtabent())) {
 			    if (!devrec->comment &&
-				(devrec->pathname != NULL)) {
-					#if defined(__APPLE__) || defined(__FreeBSD__)
-					if (stat(devrec->pathname,
-					    &tblstatbuf) == 0) {
-					#else
-					if (stat64(devrec->pathname,
-					    &tblstatbuf) == 0) {
-					#endif
-						if (samedev(tblstatbuf,
-						    devstatbuf)) {
-							found = TRUE;
-						} else {
-							/* Ignore stat() errs */
-							errno = olderrno;
-						}
-					}
-			    }
+				(devrec->pathname != NULL))
+				if (stat64(devrec->pathname,
+				    &tblstatbuf) == 0) {
+				    if (samedev(tblstatbuf, devstatbuf))
+					found = TRUE;
+				} else {
+					/* Ignore stat() errs */
+					errno = olderrno;
+				}
 			    if (!found) _freedevtabent(devrec);
 			}
 		    }

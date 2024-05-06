@@ -52,7 +52,7 @@ putprmpt(FILE *fp, char *prompt, char *choices[], char *defstr)
 	if (prompt == NULL) {
 		(void) strlcpy(buffer, defstr ? defstr : "No default prompt.",
 				sizeof (buffer));
-	} else if ((n = (int)strlen(prompt))) {
+	} else if (n = (int)strlen(prompt)) {
 		if (defstr == NULL)
 			defstr = "";
 		if (prompt[0] == '~')

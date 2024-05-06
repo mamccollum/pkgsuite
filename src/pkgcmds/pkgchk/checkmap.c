@@ -120,7 +120,7 @@ checkmap(int maptyp, int uninst, char *mapfile, char *envfile,
 			return (-1);
 		}
 		param[0] = '\0';
-		while ((value = fpkgparam(fp, param))) {
+		while (value = fpkgparam(fp, param)) {
 			if (strcmp("PATH", param) != 0) {
 				/*
 				 * If checking an uninstalled package, we

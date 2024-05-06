@@ -66,8 +66,6 @@
  * Sccsid @(#)p12lib.c	1.5 (gritter) 2/25/07
  */
 
-#define P12LIB_C
-
 #include <strings.h>
 #include <string.h>
 #include <stdlib.h>

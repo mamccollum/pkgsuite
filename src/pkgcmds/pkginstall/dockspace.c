@@ -54,10 +54,6 @@
 #include "libinst.h"
 #include "pkginstall.h"
 
-#if defined (__APPLE__) || defined (__FreeBSD__)
-#define statvfs64 statvfs
-#endif
-
 extern struct cfextra **extlist;
 extern char	pkgloc[];
 extern char	instdir[];
@@ -110,7 +106,7 @@ dockspace(char *spacefile)
 	if (readmap(&error) || readspace(spacefile, &error))
 		return (-1);
 
-	for (i = 0; (fs_tab = get_fs_entry(i)); ++i) {
+	for (i = 0; fs_tab = get_fs_entry(i); ++i) {
 		if ((!fs_tab->fused) && (!fs_tab->bused))
 			continue; /* not used by us */
 

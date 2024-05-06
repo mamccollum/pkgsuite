@@ -105,7 +105,7 @@ allocmenu(char *label, int attr)
 {
 	CKMENU *pt;
 
-	if ((pt = calloc(1, sizeof (CKMENU)))) {
+	if (pt = calloc(1, sizeof (CKMENU))) {
 		pt->attr = attr;
 		pt->label = label;
 	}
@@ -166,7 +166,7 @@ reprint:
 	printmenu(menup);
 
 start:
-	if ((n = getstr(strval, defstr, error, help, prompt))) {
+	if (n = getstr(strval, defstr, error, help, prompt)) {
 		free(defhlp);
 		free(deferr);
 		return (n);
@@ -246,7 +246,7 @@ match(CKMENU *menup, char *strval, int max)
 	choice = calloc((size_t)max, sizeof (char *));
 
 	do {
-		if ((pt = strpbrk(strval, " \t,"))) {
+		if (pt = strpbrk(strval, " \t,")) {
 			do {
 				*pt++ = '\0';
 			} while (strchr(" \t,", *pt));

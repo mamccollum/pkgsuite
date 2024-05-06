@@ -484,7 +484,6 @@ sortentry(int index)
 	return (0);
 }
 
-
 /* Return the number of blocks required by the package object provided. */
 static fsblkcnt_t
 nblks(short fsys_entry, struct cfextra *ext)
@@ -538,7 +537,6 @@ size_xchng(struct cfextra *ext1, struct cfextra *ext2)
 		set_blk_used_n(fsys_entry, bused);
 	}
 }
-
 
 /*
  * This function merges duplicate non-directory entries resulting from a

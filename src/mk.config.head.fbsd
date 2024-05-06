@@ -1,8 +1,0 @@
-SHELL = /bin/sh
-VAR=/var
-CFLAGS = -O
-LDFLAGS=-L/usr/local/lib -lintl
-CCSLDFLAGS=
-CPPFLAGS=-D_GNU_SOURCE -std=c89 -I/usr/local/include
-STRIP=strip -s -R .comment -R .note
-LNS = ln -s

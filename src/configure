@@ -5,14 +5,7 @@ printf "### CONFIGURE SCRIPT FOR PKGTOOLS
 ### All rights reserved.
 
 "
-# Check for system via `uname -s`
-printf "[  OS  ] Checking for OS... "
-case "$(uname -s)" in
-    Linux*)     printf "Linux\n"; cp mk.config.head.unix mk.config.head;;
-    Darwin*)    printf "macOS/Darwin... ERROR: No longer supported. Sorry...\n"; exit 1;; # cp mk.config.head.darwin mk.config.head;;
-    FreeBSD*)   printf "FreeBSD\n"; cp mk.config.head.fbsd mk.config.head;;
-    *)          printf "Unix-like...\n"; cp mk.config.head.unix mk.config.head;;
-esac
+
 
 printf "[ MAKE ] Checking for make... "
 which $MAKE > /dev/null 2>&1; MAKE_CUSTOM=$?
@@ -165,8 +158,8 @@ if [ "$PREF" != '' ]; then
 elif [ "$PREFIX" != '' ]; then
     printf '%s\n' "$PREFIX"
 else
-    printf '%s\n' "/usr/local"
-    PREFIX=/usr/local
+    printf '%s\n' "/usr"
+    PREFIX=/usr
 fi
 
 printf "Setting CCSDIR...\n"
@@ -193,5 +186,5 @@ cat mk.config.head mk.config.conf mk.config.tail > mk.config
 cp Makefile.in Makefile
 
 echo "
-Run '$MAKE' to begin build.
+Run 'make' to begin build.
 "

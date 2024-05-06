@@ -52,13 +52,7 @@ extern "C" {
 #endif
 
 #ifndef	B_TRUE
-#ifndef __APPLE__
 typedef enum { _B_FALSE, _B_TRUE } boolean_t;
-#else
-#include <mach/boolean.h>
-#define    _B_TRUE	TRUE
-#define    _B_FALSE	FALSE
-#endif
 #define	B_TRUE	_B_TRUE
 #define	B_FALSE	_B_FALSE
 #endif

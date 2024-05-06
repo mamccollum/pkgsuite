@@ -285,7 +285,7 @@ follow(char *path)
 
 	errflg = 0;
 
-	if ((pt = strchr(path, '='))) {
+	if (pt = strchr(path, '=')) {
 		*pt++ = '\0';
 		n = ((unsigned int)pt - (unsigned int)path - 1);
 		if (n >= PATH_MAX) {

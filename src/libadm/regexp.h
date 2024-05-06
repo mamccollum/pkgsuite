@@ -470,7 +470,7 @@ compile(char *instring, char *ep, const char *endbuf, int seof)
 			} else {
 				if (&ep[18] >= endbuf)
 					ERROR(50);
-				/* *ep++ = CCL|CMB; */ /* Is this even needed? */
+				*ep++ = CCL|CMB;
 				*ep++ = 0;
 				lc = 0;
 				for (i = 0; i < 16; i++)
@@ -479,7 +479,7 @@ compile(char *instring, char *ep, const char *endbuf, int seof)
 				regexp_h_getwc(c);
 				if (c == L'^') {
 					regexp_h_getwc(c);
-					ep[-2] = CNCL;
+					ep[-2] = CNCL|CMB;
 				}
 				do {
 					if (c == '\0' || c == '\n')
@@ -632,8 +632,7 @@ compile(char *instring, char *ep, const char *endbuf, int seof)
 				case 3:	*ep++ = CCH3;
 					break;
 				default:
-					*ep++ = CCHR;
-					/* CCHR|CMB; */
+					*ep++ = CCHR|CMB;
 				}
 				regexp_h_store(c, ep, endbuf);
 			}

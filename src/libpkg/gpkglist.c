@@ -133,9 +133,6 @@ gpkglist(char *dir, char **pkg, char **catg)
 
 	info.pkginst = NULL; /* initialize for memory handling */
 	if (pkginfo(&info, "all", NULL, NULL)) {
-		#ifndef __GLIBC__
-		#define ENOPKG 100
-		#endif
 		errno = ENOPKG; /* contains no valid packages */
 		pkgdir = savedir;
 		return (NULL);
@@ -236,7 +233,7 @@ gpkglist(char *dir, char **pkg, char **catg)
 				nwpkg[n] = strdup(inst);
 				nwpkg = next_n(&n, nwpkg);
 				nwpkg[n] = NULL;
-			} while ((inst = fpkginst(pkg[i], NULL, NULL)));
+			} while (inst = fpkginst(pkg[i], NULL, NULL));
 		} else {
 			if (fpkginfo(&info, pkg[i])) {
 				progerr(pkg_gt(ERR_NOPKG), pkg[i]);
@@ -327,7 +324,7 @@ is_same_CATEGORY(char **category, char *persistent_category)
 	pers_catgs = (char **)calloc(MAX_CAT_LEN, sizeof (char **));
 
 	pers_catgs[n++] = strtok(pers_catg, " \t\n, ");
-	while ((pers_catgs[n] = strtok(NULL, " \t\n, ")))
+	while (pers_catgs[n] = strtok(NULL, " \t\n, "))
 		n++;
 
 	for (i = 0; category[i] != NULL; i++) {
@@ -360,7 +357,7 @@ get_categories(char *catg_arg)
 	catgs = (char **)calloc(MAX_CAT_LEN, sizeof (char **));
 
 	catgs[n++] = strtok(tmp_catg, " \t\n, ");
-	while ((catgs[n] = strtok(NULL, " \t\n, ")))
+	while (catgs[n] = strtok(NULL, " \t\n, "))
 		n++;
 
 	if (*catgs == NULL)

@@ -111,7 +111,7 @@ rckrunlevel(void)
 			free(rstates);
 			return (0);
 		}
-	} while ((pt = strtok(NULL, " \t\n, ")));
+	} while (pt = strtok(NULL, " \t\n, "));
 
 	if (preremoveCheck == B_FALSE) {
 		msgtext = MSG_PKGREMOVE_RUNLEVEL;
@@ -127,7 +127,7 @@ rckrunlevel(void)
 		} else {
 			(void) fprintf(stdout, ":%s", pt);
 		}
-	} while ((pt = strtok(NULL, " \t\n, ")));
+	} while (pt = strtok(NULL, " \t\n, "));
 
 	if (preremoveCheck == B_TRUE) {
 		(void) fprintf(stdout, "\n");

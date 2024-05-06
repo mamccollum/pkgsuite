@@ -85,13 +85,9 @@ devtype(char *alias, struct pkgdev *devp)
 	devp->cdevice = devattr(alias, "cdevice");
 	if (devp->cdevice && devp->cdevice[0])  {
 		/* check for capacity */
-		if ((name = devattr(alias, "capacity"))) {
+		if (name = devattr(alias, "capacity")) {
 			if (name[0])
-				#if defined(__APPLE__) || defined(__FreeBSD__) 
-				devp->capacity = atol(name);
-				#else
 				devp->capacity = atoll(name);
-				#endif
 			free(name);
 		}
 		/* check for norewind device */

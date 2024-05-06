@@ -100,7 +100,7 @@ installf(int argc, char *argv[])
 		argc = 0;
 		argv = largv;
 		argv[argc++] = strtok(line, " \t\n");
-		while ((argv[argc] = strtok(NULL, " \t\n")))
+		while (argv[argc] = strtok(NULL, " \t\n"))
 			argc++;
 
 		if (argc < 1)
@@ -159,7 +159,7 @@ validate(struct cfextra *ext, int argc, char *argv[])
 	 * It would be a good idea to figure out how to get much of
 	 * this done using facilities in procmap.c - JST
 	 */
-	if ((pt = strchr(argv[n], '='))) {
+	if (pt = strchr(argv[n], '=')) {
 		*pt = '\0';	/* cut off pathname at the = sign */
 		is_a_link = 1;
 	} else

@@ -442,7 +442,7 @@ pkgstrGetToken(char *r_sep, char *a_string, int a_index, char *a_separators)
 
 	/* scan for separators and return 'index'th token found */
 
-	while ((q = strtok_r((char *)NULL, a_separators, &lasts))) {
+	while (q = strtok_r((char *)NULL, a_separators, &lasts)) {
 		/* retrieve separator if requested */
 
 		if (r_sep != (char *)NULL) {
@@ -561,7 +561,7 @@ pkgstrGetToken_r(char *r_sep, char *a_string, int a_index,
 
 	/* scan for separators and return 'index'th token found */
 
-	while ((q = strtok_r((char *)NULL, a_separators, &lasts))) {
+	while (q = strtok_r((char *)NULL, a_separators, &lasts)) {
 		/* retrieve separator if requested */
 
 		if (r_sep != (char *)NULL) {
@@ -895,11 +895,7 @@ static char		*M = " KMGTPE"; /* Measurement: */
 
 	/* convert out the number from the input buffer */
 
-	#ifdef __APPLE__
-		number = strtoul(a_buf, NULL, 10);
-	#else
-		number = strtoull(a_buf, (char **)NULL, 10);
-	#endif /* __APPLE__ */
+	number = strtoull(a_buf, (char **)NULL, 10);
 
 	/* if conversion error, return "-1" */
 

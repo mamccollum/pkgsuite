@@ -91,9 +91,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <stdlib.h>
-#ifndef __APPLE__
 #include <malloc.h>
-#endif
 #include <string.h>
 #include <strings.h>
 #include <unistd.h>
@@ -319,11 +317,7 @@ vfpOpen(VFP_T **r_vfp, char *a_path, char *a_mode, VFPFLAGS_T a_flags)
 
 		/* allocate buffer to hold file data */
 
-		#ifndef __APPLE__
 		vfp->_vfpStart = memalign((size_t)pagesize, vfp->_vfpSize);
-		#else
-		vfp->_vfpStart = malloc(vfp->_vfpSize); /* Apple doesn't need memalign */
-		#endif
 		if (vfp->_vfpStart == (char *)NULL) {
 			lerrno = errno;
 			(void) fclose(fp);

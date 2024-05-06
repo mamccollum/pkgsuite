@@ -45,11 +45,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
-#if defined(__APPLE__) || defined(__FreeBSD__)
-#include <sys/wait.h>
-#else
 #include <wait.h>
-#endif
 #include <sys/types.h>
 #include <pkglib.h>
 #include "pkglocale.h"
@@ -97,7 +93,7 @@ rpterr(void)
 	int	c;
 
 	if (errfile[0]) {
-		if ((fp = fopen(errfile, "r"))) {
+		if (fp = fopen(errfile, "r")) {
 			while ((c = getc(fp)) != EOF)
 				putc(c, stderr);
 			(void) fclose(fp);
@@ -149,24 +145,18 @@ esystem(char *cmd, int ifd, int ofd)
 	 * call to exec().
 	 */
 
-	/* Darwin deprecated vfork -- use posix_spawn instead */
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	pid = fork();
-	#else
 	pid = vfork();
-	#endif
-	/* >= 0 instead of == 0, because idk */
-	if (pid >= 0) {
+	if (pid == 0) {
 		/*
 		 * this is the child process
 		 */
 		int	i;
 
 		/* reset any signals to default */
-		/* What does this do again? */ /*
+
 		for (i = 0; i < NSIG; i++) {
 			(void) sigset(i, SIG_DFL);
-		} */
+		}
 
 		if (ifd > 0) {
 			(void) dup2(ifd, STDIN_FILENO);
@@ -183,7 +173,7 @@ esystem(char *cmd, int ifd, int ofd)
 
 		/* Close all open files except standard i/o */
 
-		/* closefrom(3); -- broken?? */
+		closefrom(3);
 
 		/* execute target executable */
 
@@ -413,12 +403,8 @@ e_ExecCmdArray(int *r_status, char **r_results,
 	 * adjust interrupts and open files as a prelude to a
 	 * call to exec().
 	 */
-	/* fork instead on Darwin */
-	#if defined(__APPLE__)
-	pid = fork();
-	#else
+
 	pid = vfork();
-	#endif
 
 	if (pid == 0) {
 		/*

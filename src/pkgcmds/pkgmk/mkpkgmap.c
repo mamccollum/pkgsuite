@@ -474,7 +474,7 @@ dosearch(void)
 			}
 			canonize(pt);
 			srchp[nfp][n++] = qstrdup(pt);
-		} while ((pt = strtok(NULL, separ)));
+		} while (pt = strtok(NULL, separ));
 		srchp[nfp][n] = NULL;
 	}
 }
@@ -502,7 +502,7 @@ dorsearch(void)
 		}
 		canonize(pt);
 		rootp[nfp][n++] = qstrdup(pt);
-	} while ((pt = strtok(NULL, separ)));
+	} while (pt = strtok(NULL, separ));
 	rootp[nfp][n] = NULL;
 }
 
@@ -639,7 +639,7 @@ token:
 			while (*++pt && !strchr("/= \t\n\r", *pt))
 				*pt2++ = *pt;
 			*pt2 = '\0';
-			if ((pt2 = getenv(varname))) {
+			if (pt2 = getenv(varname)) {
 				while (*pt2)
 					*copy++ = *pt2++;
 			}
@@ -714,7 +714,7 @@ pushenv(char *file)
 			(void) snprintf(topdir, sizeof (topdir),
 						"%s/%s", pt, file);
 		}
-		if ((pt = strrchr(topdir, '/')))
+		if (pt = strrchr(topdir, '/'))
 			*pt = '\0'; /* should always happen */
 		if (topdir[0] == '\0')
 			(void) strlcpy(topdir, "/", sizeof (topdir));
@@ -722,7 +722,7 @@ pushenv(char *file)
 	} else {
 		proto[nfp] = qstrdup(file);
 		dname[nfp] = qstrdup(file);
-		if ((pt = strrchr(dname[nfp], '/')))
+		if (pt = strrchr(dname[nfp], '/'))
 			*pt = '\0';
 		else {
 			/* same directory as the last prototype */

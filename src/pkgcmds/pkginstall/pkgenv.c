@@ -84,7 +84,7 @@ pkgenv(char *pkginst, char *p_pkginfo, char *p_pkgmap)
 		return (1);
 	}
 	param[0] = '\0';
-	while ((value = fpkgparam(fp, param))) {
+	while (value = fpkgparam(fp, param)) {
 		if (strcmp("PATH", param))
 			putparam(param, value);
 		free(value);

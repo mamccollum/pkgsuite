@@ -269,7 +269,6 @@ extern int	is_fs_writeable_n __P((short n));
 extern int	is_remote_fs_n __P((short n));
 extern int	is_served_n __P((short n));
 extern int	is_mounted_n __P((short n));
-#ifndef __APPLE__
 extern unsigned long	get_blk_size_n __P((short n));
 extern unsigned long	get_frag_size_n __P((short n));
 extern unsigned long	get_blk_used_n __P((short n));
@@ -277,16 +276,6 @@ extern void	set_blk_used_n __P((short n, unsigned long value));
 extern unsigned long	get_blk_free_n __P((short n));
 extern unsigned long	get_inode_used_n __P((short n));
 extern unsigned long	get_inode_free_n __P((short n));
-#else
-extern fsblkcnt_t get_blk_size_n(short n);
-extern fsblkcnt_t get_frag_size_n(short n);
-extern fsblkcnt_t get_blk_used_n(short n);
-extern void set_blk_used_n(short n, unsigned long value);
-extern fsblkcnt_t get_blk_free_n (short n);
-extern fsblkcnt_t get_inode_used_n (short n);
-extern fsblkcnt_t get_inode_free_n (short n);
-
-#endif
 extern char	*get_source_name_n __P((short n));
 extern char	*get_fs_name_n __P((short n));
 extern int	load_fsentry __P((struct fstable *fs_entry, char *name,

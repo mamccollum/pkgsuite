@@ -145,14 +145,7 @@ extern int	ckstr __P((char *strval, char *regexp[], int length,
 extern int	cktime_val __P((char *fmt, char *input));
 extern int	cktime_err __P((char *fmt, char *error));
 extern int	cktime_hlp __P((char *fmt, char *help));
-/* If glibc is used */
-#if defined(__GLIBC__)
 extern int	fmtcheck __P((char *fmt));
-#endif	/* __GLIBC__ */
-/*
- * FIXME: Is this "fmtcheck" above even used?
- */
-
 extern int	cktime __P((char *tod, char *fmt, char *defstr, char *error,
 				char *help, char *prompt));
 
@@ -340,11 +333,8 @@ extern int	write_vtoc __P((int fd, struct vtoc *vtoc));
 /*
  * from OpenSolaris libc
  */
-/* Disable strlcpy and strlcat for non-glibc systems */
-#if defined(__GLIBC__)
 extern size_t	strlcat(char *, const char *, size_t);
 extern size_t	strlcpy(char *, const char *, size_t);
-#endif /* defined(__GLIBC__) */
 extern void	closefrom(int);
 extern int	sigsend(idtype_t, id_t, int);
 extern int	cftime(char *, char *, const time_t *);

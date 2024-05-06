@@ -41,12 +41,7 @@
 #include <stdlib.h>
 #include <sys/param.h>
 #include <sys/stat.h>
-#if defined (__linux__)
-#include	<sys/sysmacros.h>
-#endif /* defined (__linux__) */
-#if defined (__sun) && !defined (SUNOS41) || defined (__OSX__)
-#include	<sys/mkdev.h>
-#endif /* defined (__sun) && !defined (SUNOS41) || defined (__OSX__) */
+#include <sys/sysmacros.h>
 #include <sys/vfstab.h>
 #ifdef	__sun
 #include <sys/lofi.h>
@@ -108,13 +103,8 @@
 
 static int test_if_blk(char *, dev_t);
 static int test_if_raw(char *, dev_t);
-#if defined(__APPLE__) || defined(__FreeBSD__)
-static char *getblkcomplete(char *, struct stat *);
-static char *getrawcomplete(char *, struct stat *);
-#else
 static char *getblkcomplete(char *, struct stat64 *);
 static char *getrawcomplete(char *, struct stat64 *);
-#endif
 
 /*
  * getfullname() - Builds a fully qualified pathname.
@@ -169,18 +159,10 @@ getfullname(char *path)
 static int
 test_if_blk(char *new_path, dev_t raw_dev)
 {
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	struct stat	buf;
-	#else
 	struct stat64	buf;
-	#endif
 
 	/* check if we got a char special file */
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	if (stat(new_path, &buf) != 0)
-	#else
 	if (stat64(new_path, &buf) != 0)
-	#endif
 		return (0);
 
 	if (!S_ISBLK(buf.st_mode))
@@ -198,18 +180,10 @@ test_if_blk(char *new_path, dev_t raw_dev)
 static int
 test_if_raw(char *new_path, dev_t blk_dev)
 {
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	struct stat	buf;
-	#else
 	struct stat64	buf;
-	#endif
 
 	/* check if we got a char special file */
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	if (stat(new_path, &buf) != 0)
-	#else
 	if (stat64(new_path, &buf) != 0)
-	#endif
 		return (0);
 
 	if (!S_ISCHR(buf.st_mode))
@@ -226,11 +200,7 @@ test_if_raw(char *new_path, dev_t blk_dev)
  */
 
 static char *
-#if defined(__APPLE__) || defined(__FreeBSD__)
-getblkcomplete(char *cp, struct stat *dat)
-#else
 getblkcomplete(char *cp, struct stat64 *dat)
-#endif
 {
 	char 		*dp;
 	char		*new_path;
@@ -283,11 +253,7 @@ getblkcomplete(char *cp, struct stat64 *dat)
  */
 
 static char *
-#if defined(__APPLE__) || defined(__FreeBSD__)
-getrawcomplete(char *cp, struct stat *dat)
-#else
 getrawcomplete(char *cp, struct stat64 *dat)
-#endif
 {
 	char 		*dp;
 	char		*new_path;
@@ -377,11 +343,7 @@ getvfsspecial(char *path, int raw_special)
 char *
 getfullblkname(char *cp)
 {
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	struct stat	buf;
-	#else
 	struct stat64	buf;
-	#endif
 	char		*dp;
 	char		*new_path;
 	dev_t		raw_dev;
@@ -398,11 +360,7 @@ getfullblkname(char *cp)
 	if (*cp == '\0')
 		return (cp);
 
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	if (stat(cp, &buf) != 0) {
-	#else
 	if (stat64(cp, &buf) != 0) {
-	#endif
 		free(cp);
 		return (strdup(""));
 	}
@@ -469,11 +427,7 @@ getfullblkname(char *cp)
 char *
 getfullrawname(char *cp)
 {
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	struct stat	buf;
-	#else
 	struct stat64	buf;
-	#endif
 	char		*dp;
 	char		*new_path;
 	dev_t		blk_dev;
@@ -490,11 +444,7 @@ getfullrawname(char *cp)
 	if (*cp == '\0')
 		return (cp);
 
-	#if defined(__APPLE__) || defined(__FreeBSD__)
-	if (stat(cp, &buf) != 0) {
-	#else
 	if (stat64(cp, &buf) != 0) {
-	#endif
 		free(cp);
 		return (strdup(""));
 	}

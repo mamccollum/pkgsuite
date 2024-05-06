@@ -393,9 +393,9 @@ ask_basedir(char *path, int nointeract)
 		return (5);
 	} else {
 		path[0] = '\0';
-		if ((n = ckpath(path, P_ABSOLUTE|P_DIR|P_WRITE,
+		if (n = ckpath(path, P_ABSOLUTE|P_DIR|P_WRITE,
 		    basedir, NULL, gettext(MSG_HELP),
-		    gettext(MSG_PROMPT))))
+		    gettext(MSG_PROMPT)))
 			return (n);	/* FAIL */
 		orig_basedir =
 		    expand_path(path);
@@ -450,7 +450,7 @@ set_basedirs(int reloc, char *adm_basedir, char *pkginst, int nointeract)
 
 		/* If admin says 'ask regardless', ask and continue */
 		else if (is_adm_basedir && is_ask) {
-			if ((n = ask_basedir(path, nointeract)))
+			if (n = ask_basedir(path, nointeract))
 				return (n);
 			if (is_update &&
 			    strcmp(orig_basedir,
@@ -493,7 +493,7 @@ set_basedirs(int reloc, char *adm_basedir, char *pkginst, int nointeract)
 				basedir = pkgparam(pkginst, "BASEDIR");
 				if (basedir && *basedir)
 					orig_basedir = expand_path(basedir);
-				else if ((n = ask_basedir(path, nointeract)))
+				else if (n = ask_basedir(path, nointeract))
 					return (n);
 			}
 		}
@@ -565,7 +565,7 @@ mkpath(char *p)
 
 	pt = (*p == '/') ? p+1 : p;
 	do {
-		if ((pt = strchr(pt, '/'))) {
+		if (pt = strchr(pt, '/')) {
 			*pt = '\0';
 		}
 		if ((access(p, F_OK) != 0) && (mkdir(p, 0755) != 0)) {
@@ -598,8 +598,8 @@ mkbasedir(int flag, char *basedir)
 			if (access(basedir, F_OK) == 0) {
 				ptext(stderr, gettext(MSG_ISAFILE), basedir);
 
-				if ((n = ckyorn(ans, NULL, NULL, NULL,
-				    gettext(MSG_YORNFILE))))
+				if (n = ckyorn(ans, NULL, NULL, NULL,
+				    gettext(MSG_YORNFILE)))
 					quit(n);
 				if (strchr("yY", *ans) == NULL)
 					quit(3);
@@ -617,8 +617,8 @@ mkbasedir(int flag, char *basedir)
 			} else {
 				ptext(stderr, gettext(MSG_MUSTEXIST), basedir);
 
-				if ((n = ckyorn(ans, NULL, NULL, NULL,
-				    gettext(MSG_YORNPRMPT))))
+				if (n = ckyorn(ans, NULL, NULL, NULL,
+				    gettext(MSG_YORNPRMPT)))
 					quit(n);
 				if (strchr("yY", *ans) == NULL)
 					quit(3);
@@ -906,7 +906,7 @@ export_client_env(char *root_path)
 				INST_RELEASE);
 
 	if ((inst_fp = fopen(inst_release_path, "r")) != NULL) {
-		while ((value = fpkgparam(inst_fp, key))) {
+		while (value = fpkgparam(inst_fp, key)) {
 			if (strcmp(key, "OS") == 0) {
 				putparam("PKG_CLIENT_OS", value);
 			} else if (strcmp(key, "VERSION") == 0) {

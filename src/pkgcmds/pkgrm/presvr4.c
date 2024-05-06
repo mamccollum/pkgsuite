@@ -105,8 +105,8 @@ presvr4(char *pkg, int a_nointeract)
 
 	echo(gettext(MSG_DEVICE));
 	for (;;) {
-		if ((n = ckstr(alias, NULL, PATH_MAX, NULL, NULL, NULL,
-		    gettext(ASK_DEVICE))))
+		if (n = ckstr(alias, NULL, PATH_MAX, NULL, NULL, NULL,
+		    gettext(ASK_DEVICE)))
 			return (n);
 
 		if (devtype(alias, &pkgdev))
@@ -120,7 +120,7 @@ presvr4(char *pkg, int a_nointeract)
 	pkgdev.mount = pkgdev.dirname = "/install";
 	pkgdev.rdonly = 1;
 
-	if ((n = pkgmount(&pkgdev, pkg, 1, 0, 1)))
+	if (n = pkgmount(&pkgdev, pkg, 1, 0, 1))
 		quit(n);
 
 	psvr4pkg(&pkg);

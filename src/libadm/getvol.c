@@ -129,10 +129,10 @@ _getvol(char *device, char *label, int options, char *prompt, char *norewind)
 	if (label) {
 		(void) strncpy(origfsname, label, LABELSIZ);
 		origfsname[LABELSIZ] = '\0';
-		if ((pt = strchr(origfsname, ','))) {
+		if (pt = strchr(origfsname, ',')) {
 			*pt = '\0';
 		}
-		if ((pt = strchr(label, ','))) {
+		if (pt = strchr(label, ',')) {
 			(void) strncpy(origvolname, pt+1, LABELSIZ);
 			origvolname[LABELSIZ] = '\0';
 		} else
@@ -157,7 +157,7 @@ _getvol(char *device, char *label, int options, char *prompt, char *norewind)
 			if ((options & DM_BATCH) || (volume == NULL))
 				return (1);
 			/* display advice on how to ready device */
-			if ((advice = devattr(device, "advice")))
+			if (advice = devattr(device, "advice"))
 				(void) puttext(stderr, advice, 0, 0);
 			continue;
 		}
@@ -193,10 +193,10 @@ ckilabel(char *label, int flag)
 
 	(void) strncpy(fsname, label, LABELSIZ);
 	fsname[LABELSIZ] = '\0';
-	if ((pt = strchr(fsname, ','))) {
+	if (pt = strchr(fsname, ',')) {
 		*pt = '\0';
 	}
-	if ((pt = strchr(label, ','))) {
+	if (pt = strchr(label, ',')) {
 		(void) strncpy(volname, pt+1, LABELSIZ);
 		volname[LABELSIZ] = '\0';
 	} else
@@ -253,14 +253,14 @@ wilabel(char *label)
 	int	n;
 
 	if (!label || !strlen(origfsname)) {
-		if ((n = ckstr(fsname, NULL, LABELSIZ, NULL, NULL, NULL,
-				"Enter text for fsname label:")))
+		if (n = ckstr(fsname, NULL, LABELSIZ, NULL, NULL, NULL,
+				"Enter text for fsname label:"))
 			return (n);
 	} else
 		(void) strcpy(fsname, origfsname);
 	if (!label || !strlen(origvolname)) {
-		if ((n = ckstr(volname, NULL, LABELSIZ, NULL, NULL, NULL,
-				"Enter text for volume label:")))
+		if (n = ckstr(volname, NULL, LABELSIZ, NULL, NULL, NULL,
+				"Enter text for volume label:"))
 			return (n);
 	} else
 		(void) strcpy(volname, origvolname);
@@ -398,7 +398,7 @@ insert(char *device, char *label, int options, char *prompt)
 	pt = prmpt;
 	(void) fprintf(stderr, BELL);
 	for (;;) {
-		if ((n = ckkeywd(strval, keyword, NULL, NULL, NULL, pt)))
+		if (n = ckkeywd(strval, keyword, NULL, NULL, NULL, pt))
 			return (n);
 
 		pt = prompt; /* next prompt is only partial */

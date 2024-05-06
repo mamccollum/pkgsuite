@@ -28,7 +28,7 @@ mrproper: clean
 		(cd "$$i" && $(MAKE) $@) || exit; \
 	done
 	rm -rf ccs
-	rm -f $(MAKEFILES) Makefile mk.config mk.config.conf mk.config.head
+	rm -f $(MAKEFILES) Makefile mk.config mk.config.conf
 
 PKGROOT = /var/tmp/heirloom-pkgtools
 PKGTEMP = /var/tmp

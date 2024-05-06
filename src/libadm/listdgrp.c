@@ -119,7 +119,7 @@ listdgrp(char *dgroup)	/* The device group to list */
 	 *  Get the record for this device group
 	 */
 
-	if ((dgrpent = _getdgrprec(dgroup))) {
+	if (dgrpent = _getdgrprec(dgroup)) {
 
 	    /*  Count the number of members in the device group  */
 	    n = 1;
@@ -127,7 +127,7 @@ listdgrp(char *dgroup)	/* The device group to list */
 		n++;
 
 	    /*  Get space for the list to return  */
-	    if ((listbuf = malloc(n*sizeof (char **)))) {
+	    if (listbuf = malloc(n*sizeof (char **))) {
 
 		/*
 		 *  For each member in the device group, add that device
@@ -139,7 +139,7 @@ listdgrp(char *dgroup)	/* The device group to list */
 		for (member = dgrpent->membership; noerror && member;
 		    member = member->next) {
 
-		    if ((*pp = malloc(strlen(member->name)+1)))
+		    if (*pp = malloc(strlen(member->name)+1))
 
 			(void) strcpy(*pp++, member->name);
 		    else noerror = FALSE;

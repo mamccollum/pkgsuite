@@ -124,7 +124,7 @@ pkgmount(struct pkgdev *devp, char *pkg, int part, int nparts, int getvolflg)
 				n = -1;
 				continue;
 			}
-			if ((pt = strpbrk(cmd, " \t\n")))
+			if (pt = strpbrk(cmd, " \t\n"))
 				*pt = '\0';
 			if (cmd[0] == '\0') {
 				logerr(pkg_gt(ERR_FSTYP), devp->bdevice);

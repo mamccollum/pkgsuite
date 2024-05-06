@@ -92,5 +92,5 @@ predepend(char *oldpkg)
 			progerr(gettext(ERR_SYMLINK), path, spath);
 			warnflag++;
 		}
-	} while ((oldpkg = strtok(NULL, " \t\n")));
+	} while (oldpkg = strtok(NULL, " \t\n"));
 }

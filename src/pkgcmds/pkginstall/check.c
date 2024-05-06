@@ -237,8 +237,8 @@ ckpartial(void)
 		msgtext = NULL;
 
 		ckquit = 0;
-		if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_PARTIAL),
-				ask_cont))) {
+		if (n = ckyorn(ans, NULL, NULL, gettext(HLP_PARTIAL),
+				ask_cont)) {
 			return (n);
 		}
 
@@ -271,8 +271,8 @@ ckpartial(void)
 		msgtext = NULL;
 
 		ckquit = 0;
-		if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_PARTIAL),
-			ask_cont))) {
+		if (n = ckyorn(ans, NULL, NULL, gettext(HLP_PARTIAL),
+			ask_cont)) {
 			return (n);
 		}
 
@@ -342,7 +342,7 @@ ckrunlevel(void)
 			free(istates);
 			return (0);
 		}
-	} while ((pt = strtok(NULL, " \t\n, ")));
+	} while (pt = strtok(NULL, " \t\n, "));
 
 	if (preinstallCheck == B_FALSE) {
 		msgtext = gettext(MSG_RUNLEVEL);
@@ -358,7 +358,7 @@ ckrunlevel(void)
 		} else {
 			(void) fprintf(stdout, ":%s", pt);
 		}
-	} while ((pt = strtok(NULL, " \t\n, ")));
+	} while (pt = strtok(NULL, " \t\n, "));
 
 	if (preinstallCheck == B_TRUE) {
 		(void) fprintf(stdout, "\n");
@@ -381,8 +381,8 @@ ckrunlevel(void)
 	msgtext = NULL;
 
 	ckquit = 0;
-	if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_RUNLEVEL),
-		ask_cont))) {
+	if (n = ckyorn(ans, NULL, NULL, gettext(HLP_RUNLEVEL),
+		ask_cont)) {
 		return (n);
 	}
 
@@ -450,8 +450,8 @@ ckdepend(void)
 		msgtext = NULL;
 
 		ckquit = 0;
-		if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_DEPEND),
-			ask_cont))) {
+		if (n = ckyorn(ans, NULL, NULL, gettext(HLP_DEPEND),
+			ask_cont)) {
 			return (n);
 		}
 
@@ -793,8 +793,8 @@ ckconflct(void)
 
 		msgtext = NULL;
 
-		if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_CONFLICT),
-			gettext(ASK_CONFLICT)))) {
+		if (n = ckyorn(ans, NULL, NULL, gettext(HLP_CONFLICT),
+			gettext(ASK_CONFLICT))) {
 			return (n);
 		}
 
@@ -803,8 +803,8 @@ ckconflct(void)
 			(void) snprintf(ask_cont, sizeof (ask_cont),
 				gettext(ASK_CONT), pkginst);
 
-			if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_CONT),
-				ask_cont))) {
+			if (n = ckyorn(ans, NULL, NULL, gettext(HLP_CONT),
+				ask_cont)) {
 				return (n);
 			}
 
@@ -954,16 +954,16 @@ cksetuid(void)
 		}
 		msgtext = NULL;
 
-		if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_SETUID),
-			gettext(ASK_SETUID)))) {
+		if (n = ckyorn(ans, NULL, NULL, gettext(HLP_SETUID),
+			gettext(ASK_SETUID))) {
 			return (n);
 		}
 		if (strchr("yY", *ans) == NULL) {
 			ckquit = 0;
 			(void) snprintf(ask_cont, sizeof (ask_cont),
 				gettext(ASK_CONT), pkginst);
-			if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_CONT),
-				ask_cont))) {
+			if (n = ckyorn(ans, NULL, NULL, gettext(HLP_CONT),
+				ask_cont)) {
 				return (n);
 			}
 			if (strchr("yY", *ans) == NULL) {
@@ -1039,8 +1039,8 @@ ckpriv(void)
 		msgtext = NULL;
 
 		ckquit = 0;
-		if ((n = ckyorn(ans, NULL, NULL, gettext(HLP_PRIV),
-			ask_cont))) {
+		if (n = ckyorn(ans, NULL, NULL, gettext(HLP_PRIV),
+			ask_cont)) {
 			return (n);
 		}
 

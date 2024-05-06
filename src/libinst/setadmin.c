@@ -164,7 +164,7 @@ setadminFile(char *file)
 	}
 
 	param[0] = '\0';
-	while ((value = fpkgparam(fp, param))) {
+	while (value = fpkgparam(fp, param)) {
 		if (strcmp(param, "mail") == 0) {
 			mail = 1;
 		}

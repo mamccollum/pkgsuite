@@ -41,11 +41,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
-#if defined(__APPLE__) || defined(__FreeBSD__)
-#include <sys/wait.h>
-#else
 #include <wait.h>
-#endif /* __APPLE__ */
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/stat.h>

@@ -193,7 +193,7 @@ main(int argc, char *argv[])
 				progerr(gettext(ERR_POPTION));
 				quit(1);
 			}
-			while ((pathlist[npaths] = strtok(NULL, " , "))) {
+			while (pathlist[npaths] = strtok(NULL, " , ")) {
 				if (npaths++ >= MAXPATHS) {
 					progerr(gettext(ERR_MAXPATHS),
 						MAXPATHS);
@@ -311,7 +311,7 @@ main(int argc, char *argv[])
 				quit(1);
 			}
 			npaths++;
-			while ((ppathlist[npaths] = strtok(NULL, " , "))) {
+			while (ppathlist[npaths] = strtok(NULL, " , ")) {
 				if (npaths++ >= MAXPATHS) {
 					progerr(gettext(ERR_MAXPATHS),
 						MAXPATHS);
@@ -407,8 +407,8 @@ main(int argc, char *argv[])
 				progerr(gettext(ERR_MKDIR), spooldir);
 				quit(99);
 			}
-			if ((n = pkgtrans(device, spooldir, pkg, PT_SILENT,
-				NULL, NULL)))
+			if (n = pkgtrans(device, spooldir, pkg, PT_SILENT,
+				NULL, NULL))
 				quit(n);
 			if (catg_arg != NULL)
 				pkg = gpkglist(spooldir, all_pkgs, category);

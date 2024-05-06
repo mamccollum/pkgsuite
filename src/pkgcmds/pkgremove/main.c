@@ -672,7 +672,7 @@ main(int argc, char *argv[])
 	 */
 
 	param[0] = '\0';
-	while ((value = fpkgparam(fp, param))) {
+	while (value = fpkgparam(fp, param)) {
 		int validx = 0;
 		char *newvalue;
 
@@ -848,7 +848,7 @@ main(int argc, char *argv[])
 	 * and it does not apply to any database files manipulated by the
 	 * installation service.
 	 */
-	if ((value = getenv("ULIMIT"))) {
+	if (value = getenv("ULIMIT")) {
 		if (assign_ulimit(value) == -1) {
 			progerr(ERR_BADULIMIT, value);
 			warnflag++;
@@ -1108,7 +1108,7 @@ main(int argc, char *argv[])
 	}
 
 	if (!warnflag && !failflag) {
-		if ((pt = getenv("PREDEPEND")))
+		if (pt = getenv("PREDEPEND"))
 			predepend(pt);
 		(void) chdir("/");
 		if (rrmdir(pkgloc))

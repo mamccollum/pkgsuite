@@ -56,9 +56,9 @@
 #include <openssl/err.h>
 #include <openssl/safestack.h>
 #include <openssl/stack.h>
-#include "keystore.h"
 #include "p12lib.h"
 #include "pkgerr.h"
+#include "keystore.h"
 #include "pkglib.h"
 #include "pkglibmsgs.h"
 

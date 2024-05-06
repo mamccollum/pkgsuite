@@ -82,12 +82,12 @@ pkgvolume(struct pkgdev *devp, char *pkg, int part, int nparts)
 
 	for (;;) {
 		(void) chdir("/");
-		if ((n = pkgumount(devp))) {
+		if (n = pkgumount(devp)) {
 			progerr(gettext("attempt to unmount <%s> failed (%d)"),
 				devp->bdevice, n);
 			quit(99);
 		}
-		if ((n = pkgmount(devp, pkg, part, nparts, 1)))
+		if (n = pkgmount(devp, pkg, part, nparts, 1))
 			quit(n);
 		(void) sprintf(path, "%s/%s", devp->dirname, pkg);
 		if (ckvolseq(path, part, nparts) == 0)

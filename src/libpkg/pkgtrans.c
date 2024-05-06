@@ -50,14 +50,7 @@
 #include <sys/param.h>
 #include <sys/stat.h>
 #include <sys/statvfs.h>
-#if defined(__APPLE__) || defined(__FreeBSD__)
-#include <sys/disk.h>
-#include <sys/statvfs.h>
-#define statvfs64 statvfs
-#define O_LARGEFILE 0
-#else
 #include <sys/sysmacros.h>
-#endif
 #include <dirent.h>
 #include <signal.h>
 #include <pkginfo.h>
@@ -92,8 +85,7 @@ extern int	ds_ginit(char *device);
 extern int	ds_close(int pkgendflg);
 
 /* #define	CPIOPROC	BINDIR "/cpio" */
-#define CPIOPROC	"/usr/bin/cpio"
-
+#define	CPIOPROC	"/usr/bin/cpio"
 
 #define	CMDSIZE	512	/* command block size */
 
@@ -189,8 +181,8 @@ pkghead(char *device)
 	}
 
 	/* check for datastream */
-	if ((n = pkgtrans(device, (char *)0, allpkg, PT_SILENT|PT_INFO_ONLY,
-	    NULL, NULL))) {
+	if (n = pkgtrans(device, (char *)0, allpkg, PT_SILENT|PT_INFO_ONLY,
+	    NULL, NULL)) {
 		cleanup();
 		return (n);
 	}
@@ -363,8 +355,8 @@ _pkgtrans(char *device1, char *device2, char **pkg, int options,
 	/* check for datastream */
 	ids_name = NULL;
 	if (srcdev.bdevice) {
-		if ((n = _getvol(srcdev.bdevice, NULL, 0,
-		    pkg_gt("Insert %v into %p."), srcdev.norewind))) {
+		if (n = _getvol(srcdev.bdevice, NULL, 0,
+		    pkg_gt("Insert %v into %p."), srcdev.norewind)) {
 			cleanup();
 			if (n == 3)
 				return (3);
@@ -388,7 +380,7 @@ _pkgtrans(char *device1, char *device2, char **pkg, int options,
 	}
 
 	if (!ids_name && device2 == (char *)0) {
-		if ((n = pkgmount(&srcdev, NULL, 1, 0, 0))) {
+		if (n = pkgmount(&srcdev, NULL, 1, 0, 0)) {
 			cleanup();
 			return (n);
 		}
@@ -506,7 +498,7 @@ _pkgtrans(char *device1, char *device2, char **pkg, int options,
 			return (1);
 		}
 	} else if (srcdev.mount) {
-		if ((n = pkgmount(&srcdev, NULL, 1, 0, 0))) {
+		if (n = pkgmount(&srcdev, NULL, 1, 0, 0)) {
 			cleanup();
 			return (n);
 		}
@@ -639,12 +631,12 @@ _pkgtrans(char *device1, char *device2, char **pkg, int options,
 		}
 
 		if (!(options & PT_ODTSTREAM) && dstdev.mount) {
-			if ((n = pkgmount(&dstdev, NULL, 0, 0, 1))) {
+			if (n = pkgmount(&dstdev, NULL, 0, 0, 1)) {
 				cleanup();
 				return (n);
 			}
 		}
-		if ((errflg = pkgxfer(pkg[i], options))) {
+		if (errflg = pkgxfer(pkg[i], options)) {
 			pkg[i] = NULL;
 			if ((options & PT_ODTSTREAM) || (errflg != 2))
 				break;
@@ -1195,7 +1187,7 @@ wdsheader(struct dm_buf *hdr, char *src, char *device, char **pkg, PKCS7 *sig)
 		}
 	}
 
-	if ((n = esystem(tmp_entry, list_fd, ds_fd))) {
+	if (n = esystem(tmp_entry, list_fd, ds_fd)) {
 		rpterr();
 		progerr(pkg_gt(ERR_TRANSFER));
 		logerr(pkg_gt(MSG_CMDFAIL), tmp_entry, n);
@@ -1290,11 +1282,11 @@ pkgxfer(char *srcinst, int options)
 		pkgdir = dst;
 
 		(void) strcpy(temp, srcinst);
-		if ((pt = strchr(temp, '.')))
+		if (pt = strchr(temp, '.'))
 			*pt = '\0';
 		(void) strcat(temp, ".*");
 
-		if ((pt = fpkginst(temp, info.arch, info.version))) {
+		if (pt = fpkginst(temp, info.arch, info.version)) {
 			/*
 			 * the same instance already exists, although
 			 * its pkgid might be different
@@ -1315,7 +1307,7 @@ pkgxfer(char *srcinst, int options)
 			 * to the package abbreviation until the instance
 			 * does not exist in the destination directory
 			 */
-			if ((pt = strchr(temp, '.')))
+			if (pt = strchr(temp, '.'))
 				*pt = '\0';
 			for (i = 2; (access(dstdir, 0) == 0); i++) {
 				(void) sprintf(dstinst, "%s.%d", temp, i);
@@ -1424,8 +1416,8 @@ pkgxfer(char *srcinst, int options)
 				if (pkgumount(&dstdev))
 					return (1);
 				if (part <= nparts) {
-					if ((n = pkgmount(&dstdev, NULL, part+1,
-					    nparts, 1)))
+					if (n = pkgmount(&dstdev, NULL, part+1,
+					    nparts, 1))
 						return (n);
 					if (ckoverwrite(dst, dstinst, options))
 						return (1);
@@ -1528,7 +1520,7 @@ pkgxfer(char *srcinst, int options)
 			(void) sprintf(prompt,
 			    pkg_gt("Insert %%v %d of %d into %%p"),
 			    ds_volno, ds_volcnt);
-			if ((n = getvol(ods_name, NULL, DM_FORMAT, prompt)))
+			if (n = getvol(ods_name, NULL, DM_FORMAT, prompt))
 				return (n);
 			if ((ds_fd = open(dstdev.cdevice, O_WRONLY
 			    | O_LARGEFILE)) < 0) {
@@ -1694,8 +1686,8 @@ pkgxfer(char *srcinst, int options)
 				(void) sprintf(prompt,
 				    pkg_gt("Insert %%v %d of %d into %%p"),
 				    ds_volno, ds_volcnt);
-				if ((n = getvol(ods_name, NULL, DM_FORMAT,
-				    prompt)))
+				if (n = getvol(ods_name, NULL, DM_FORMAT,
+				    prompt))
 					return (n);
 				if ((ds_fd = open(dstdev.cdevice, 1)) < 0) {
 					progerr(pkg_gt(ERR_TRANSFER));

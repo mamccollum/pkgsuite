@@ -131,8 +131,8 @@ ckentry(int envflag, int maptyp, struct cfent *ept, VFP_T *vfp)
 			ept->ainfo.mode |= 0644;
 			if (!strchr("in", ept->ftype)) {
 				/* Set the safe attributes. */
-				if ((a_err = averify(fflag, &ept->ftype,
-				    path, &ept->ainfo))) {
+				if (a_err = averify(fflag, &ept->ftype,
+				    path, &ept->ainfo)) {
 					errflg++;
 					if (!qflag || (a_err != VE_EXIST)) {
 						logerr(gettext("ERROR: %s"),
@@ -156,8 +156,8 @@ ckentry(int envflag, int maptyp, struct cfent *ept, VFP_T *vfp)
 		a_err = 0;
 		if (aflag && !strchr("in", ept->ftype)) {
 			/* validate attributes */
-			if ((a_err = averify(fflag, &ept->ftype, ept->path,
-			    &ept->ainfo))) {
+			if (a_err = averify(fflag, &ept->ftype, ept->path,
+			    &ept->ainfo)) {
 				errflg++;
 				if (!qflag || (a_err != VE_EXIST)) {
 					logerr(gettext("ERROR: %s"),
@@ -176,8 +176,8 @@ ckentry(int envflag, int maptyp, struct cfent *ept, VFP_T *vfp)
 		    (!nflag || ept->ftype != 'e')) {
 			/* validate contents */
 			/* Report invalid modtimes by passing cverify a -1 */
-			if ((c_err = cverify((!fflag ? (-1) : fflag),
-				&ept->ftype, ept->path, &ept->cinfo, 1))) {
+			if (c_err = cverify((!fflag ? (-1) : fflag),
+				&ept->ftype, ept->path, &ept->cinfo, 1)) {
 				errflg++;
 				if (!qflag || (c_err != VE_EXIST)) {
 					if (!a_err)

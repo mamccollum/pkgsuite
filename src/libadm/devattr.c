@@ -169,7 +169,7 @@ devattr(
 	 */
 
 	if (found) {
-	    if ((rtnval = malloc(strlen(val)+1)))
+	    if (rtnval = malloc(strlen(val)+1))
 		(void) strcpy(rtnval, val);
 	    else errno = ENOMEM;
 	} else {

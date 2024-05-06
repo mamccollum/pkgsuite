@@ -113,7 +113,7 @@ attrdefault(void)
 void
 setmapmode(int mode)
 {
-	/* if (mode >= 0 || mode <= 3) { */
+	if (mode >= 0 || mode <= 3) {
 		mapmode = mode;
 		if (mode == MAPBUILD)
 			maptype = " build";
@@ -121,7 +121,7 @@ setmapmode(int mode)
 			maptype = " install";
 		else
 			maptype = "";
-	/* } */
+	}
 }
 
 /* This is the external query interface for mapmode. */
