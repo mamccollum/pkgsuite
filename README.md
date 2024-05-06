@@ -1,5 +1,7 @@
 # pkgsuite
 
+**WARNING: this currently builds but does not properly package. do not use.**
+
 This is a fork of the Heirloom pkgtools, derived from OpenSolaris & UNIX SVR4.
 
 See [README.d](README.d/) for OS-specific documentation & other information.
