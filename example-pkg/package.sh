@@ -7,7 +7,9 @@ rm -rf sample* prototype
 
 # make prototype file to list files to be packaged
 echo "i pkginfo" >> prototype
-pkgproto usr=/usr >> prototype
+for i in `find . -maxdepth 1 -type d -print | sed '1d'`; do
+	find $i -print | sed '1d' | pkgproto >> prototype
+done
 
 # make package into filesystem format
 pkgmk -d . -r .

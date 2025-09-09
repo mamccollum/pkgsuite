@@ -3,7 +3,7 @@ VAR=/var
 CFLAGS = -O
 LDFLAGS=
 CCSLDFLAGS=
-CPPFLAGS=-D_GNU_SOURCE -std=c89
+CPPFLAGS=-D_GNU_SOURCE -std=c89 -Wall -Wextra -pedantic
 STRIP=strip -s -R .comment -R .note
 LNS = ln -s
 
