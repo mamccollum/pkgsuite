@@ -1,9 +1,8 @@
 #!/bin/sh
 
-printf "### CONFIGURE SCRIPT FOR PKGTOOLS
-### Copyright (c) Molly A. McCollum (mamccollum)
-### All rights reserved.
-
+printf "
+### CONFIGURE SCRIPT FOR PKGTOOLS
+### https://github.com/mamccollum/pkgsuite
 "
 
 

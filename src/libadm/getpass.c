@@ -41,7 +41,7 @@
 #include <signal.h>
 #include <unistd.h>
 /* #include <stropts.h> */
-#include <termio.h>
+#include <termios.h>
 
 static void catch(int);
 static int intrupt;
@@ -66,7 +66,7 @@ getpassphrase(const char *prompt)
 static char *
 __getpass(const char *prompt, int size)
 {
-	struct termio ttyb;
+	struct termios ttyb;
 	unsigned short flags;
 	char *p;
 	int c;
@@ -87,10 +87,10 @@ __getpass(const char *prompt, int size)
 	setbuf(fi, NULL);
 	sig = signal(SIGINT, catch);
 	intrupt = 0;
-	(void) ioctl(fileno(fi), TCGETA, &ttyb);
+	(void) tcgetattr(fileno(fi), &ttyb);
 	flags = ttyb.c_lflag;
 	ttyb.c_lflag &= ~(ECHO | ECHOE | ECHOK | ECHONL);
-	(void) ioctl(fileno(fi), TCSETAF, &ttyb);
+	(void) tcsetattr(fileno(fi), TCSAFLUSH, &ttyb);
 #ifdef	__sun
 	FLOCKFILE(lk, stderr);
 #else
@@ -105,7 +105,7 @@ __getpass(const char *prompt, int size)
 	}
 	*p = '\0';
 	ttyb.c_lflag = flags;
-	(void) ioctl(fileno(fi), TCSETAW, &ttyb);
+	(void) tcsetattr(fileno(fi), TCSADRAIN, &ttyb);
 	(void) putc('\n', stderr);
 #ifdef	__sun
 	FUNLOCKFILE(lk);
