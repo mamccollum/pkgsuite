@@ -1,0 +1,9 @@
+Thank you to the following people, for whom this project would not exist without:
+ - The UNIX system developers at Bell Labs & AT&T, for SVR4
+ - Sun Microsystems, for releasing OpenSolaris
+ - Gunnar Ritter, for porting this software and related bits to other platforms
+
+And thank you to the contributors of this repository on GitHub:
+ - Molly A. McCollum (https://github.com/mamccollum)
+ - Zeckma (https://github.com/Zeckmathederg)
+
